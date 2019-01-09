@@ -38,6 +38,32 @@ public class UserDao {
         }
     }
 
+    public List<User> rankAll() {
+        try {
+            //1.得到一个连接
+            Connection conn = DBUtil.getConn();
+            //2.得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("SELECT(@rank := @rank+1) AS 累计积分排名,a.* FROM(SELECT * FROM 用户)a,(SELECT @rank :=0)b ORDER BY a.累计积分 DESC");
+            ResultSet rs = stmt.executeQuery();//执行
+            List<User> list = new ArrayList<User>();
+            //3.bean对象封装
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("用户序号"));
+                user.setName(rs.getString("账号"));
+                user.setPwd(rs.getString("密码"));
+                user.setHighestScore(rs.getInt("单局最高积分"));
+                user.setGrandTotalScore(rs.getInt("累计积分"));
+                user.setRanking(rs.getInt("累计积分排名"));
+                list.add(user);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<User> selectAll() {
         try {
             //1.得到一个连接

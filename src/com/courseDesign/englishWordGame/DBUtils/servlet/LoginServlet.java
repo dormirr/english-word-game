@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/loginServlet"})
+@WebServlet(name = "LoginServlet",urlPatterns = {"/loginServlet"})
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //post方式解决中文乱码问题：告诉servlet要用UTF-8的码表来解码
@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         User user = ud.selectOne(name);
 
         //3.2逻辑判断
-        List<User> list = ud.selectAll();
+        List<User> list = ud.rankAll();
         if (user != null) {
             if (pwd.equals(user.getPwd())) {
                 //succ

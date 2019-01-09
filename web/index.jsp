@@ -30,7 +30,7 @@
         <header id="header">
             <h1>游戏积分排名</h1>
             <p>欢迎您 &nbsp;&bull;&nbsp; ${user.name }</p>
-            <p><a href="userServlet?type=selectById&&id=${user.id }"><span class="label">修改密码</span></a></p>
+            <p><a href="wordServlet?type=selectAll&&id=${user.id }"><span class="label">修改密码</span></a></p>
             <table width="100%">
                 <thead>
                 <tr align="center">
