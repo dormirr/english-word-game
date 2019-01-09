@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Standard: An Implementation of the JSP&#153; Standard Tag Library (JSTL)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+<h2>Standard: An Implementation of the JavaServer Pages&#153; Standard Tag Library
+(JSTL)</h2>
+
+
+<h3>Included in this distribution:</h3>
+
+<h4>Documentation ('doc/web' directory)</h4>
+
+<ul>
+  <li><a href="GettingStarted.html">Getting Started</a>: A quick roadmap to help 
+    you get started with this release.</li>
+  <li><a href="ReleaseNotes.html">Release Notes</a>: Release history of the Standard Taglib.</li>
+</ul>
+
+Sun's <a href="http://java.sun.com/products/jstl">JSTL web site</a>
+    is the official website for JSTL, providing access to the specification 
+(the specification is a formal description of the functionality and 
+      features of the JSTL tag set), as well as 
+lists several tutorials and books about JSTL that are available.
+
+
+<h4>Examples ('examples' directory)</h4>
+
+<p>	The standard-examples application included with this distribution
+	demonstrates the current capabilities of JSTL, exploring idioms
+	and usage patterns when appropriate.</p>
+
+<h4>Implementation of JSTL ('src' and 'conf' directories)</h4>
+
+<p>	Every effort has been made to provide a functional, robust, and
+	speedy implementation of JSTL.
+        For developers, the code is commented thoroughly
+	to help provide an understanding of design considerations and
+	salient implementation details.</p>
+
+<p>	Classes in any of the subpackages of javax.servlet.jsp.jstl represent
+        JSTL API classes. Classes under org.apache.* represent implementation
+        classes. The implementation's package structure is organized as
+        follows:</p>
+
+<pre>
+  org.apache.taglibs.standard
+   .tag         tag handlers and routines related to them
+      .common      handlers and support routines common for RT/EL attributes
+          .core    core library (common)
+          .fmt     i18n-capable formatting tags (common)
+          .xml     XML manipulation library (common)
+	  .sql	   SQL library (common)
+      .el          handlers specific to expression language (EL) evaluation
+          .core    core library (EL)
+          .fmt     i18n-capable formatting tags (EL)
+          .xml     XML manipulation library (EL)
+	  .sql	   SQL library (EL)
+      .rt          handlers specific to rtexprvalue (rt) evaluation
+          .core    core library (rt)
+          .fmt     i18n-capable formatting tags (rt)
+          .xml     XML manipulation library (rt)
+	  .sql	   SQL library (rt)
+   .functions   EL Functions library
+   .tei         TagExtraInfo classes (common to both libraries)
+   .tlv         TagLibraryValidator classes (and associated helpers)
+   .lang        expression-language support and implementation
+      .support     ExpressionEvaluator, ExpressionEvaluatorManager
+      .jstl        JSTL 1.0 expression language
+   .resources   Resources for internationalization
+</pre>
+
+<p> The <tt>javax.servlet.jsp.jstl.*</tt> tree is discussed in the JSTL
+specification.</p>
+
+<p>Enjoy!</p>
+
+<pre>
+  -- Shawn Bayern &lt;bayern@essentially.net&gt;
+     (on behalf of <a href="mailto:jsr-52-comments@jcp.org">JSR-052 (JSTL) Expert Group</a>)
+</pre>

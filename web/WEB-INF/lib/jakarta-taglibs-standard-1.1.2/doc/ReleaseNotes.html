@@ -1,0 +1,750 @@
+<html>
+<head>
+<title>Standard 1.1 Release Notes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF">
+<center>
+<h1>
+Standard: An Implementation of the JSP&#153; Standard Tag Library (JSTL)<br>
+<p>
+Version: 1.1.2<br>
+Release Notes
+</h1>
+</center>
+
+<p>The Standard 1.1.2 release is an implementation of the <a href="http://java.sun.com/products/jstl">JSTL 1.1 Specification</a>.</p>
+
+<p>The Standard Taglib, which is hosted at Apache, is used as the source repository for the <a href="http://java.sun.com/products/jstl">JSTL reference implementation</a> supplied by Sun Microsystems, Inc.</p>
+<hr/>
+
+<h2>Release History</h2>
+
+
+<dt><b>October 2004 &#x2022; Standard 1.1.2</b></dt>
+<p>The latest implementation is available from the Nightly Builds.</p>
+  <dd>Bugs fixed since Standard 1.1.1 Taglib release:</dd>
+  <ul>
+  <blockquote>
+    <table width="95%" border="1">
+      <tr>
+        <th width="27%">
+          <div align="center">
+            Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=17388">17388</a></div>
+        </td>
+        <td width="73%" height="15">
+          <p>Close statement created in update tag. It is good programming pro-active to close statements as soon as they are finished even though they will also be closed when the connection that created them is closed.</p> 
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=31313">31313</a></div>
+        </td>
+        <td width="73%" height="15">
+          <p>According to the W3C document the schemaLocation declaration is made up of a pair of URI references.  One defines the namespace name and the other is a hint as to the location of the schema document.  The space in the schemaLocation definition separates the two declarations.<p>
+          <p>For a complete explanation you can take a look at Section 4.3.2 of <a href=http://www.w3.org/TR/xmlschema-1/#schema-loc">W3C Xml Schema Document</a>
+          <p>In the JSTL case the location is not an absolute URI which can be confusing especially to some IDE's. Went ahead and changed it to be an absolute URI pointing to the schema document location.</p>
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=30646">30646</a></div>
+        </td>
+        <td width="73%" height="15">
+          <p>Fixed implementation so that it compiles under J2SE 5.0. Changed the J2SE 5.0 reserved keyword "enum" to "enum_".</p> 
+          <p>NOTE: the JAXP 1.2 classes will need to be specified with J2SE 5.0 since the the 5.0 bundled JAXP 1.3 packages have been moved around and re-named.</p>
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=30647">30647</a></div>
+        </td>
+        <td width="73%" height="15">
+          <p>Followed the <a href="http://java.sun.com/blueprints/code/projectconventions.html">BluePrints Guidelines</a> for web application project structure. Most IDEs assume the BluePrints structure so abiding by these guidelines will help them integrate the examples.</p>
+          <p>The following changes were made to the examples directory structure:</p>
+          <ul>
+            <li>moved the examples deployment descriptor to the web/WEB-INF directory out from conf</li>
+            <li>moved the jstl-examples.tld to web/WEB-INF/tlds</li>
+            <li>updated build.xml to reflect new directory structure</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=31147">31147</a></div>
+        </td>
+        <td width="73%" height="15">
+          <p>Fixed XPath Expression evaluation so that the expressions are evaluated relative to the document Node as opposed to the document Root.</p>
+        </td>
+      </tr>
+    </table>
+  </blockquote>
+  </ul>
+    <blockquote>
+      <p>Other changes and additions:</p>
+      <ul>
+        <li>In JstlUriResolver when external entitities are resolved the 'base' varies from different Xalan implementations. Fixed how base is handled.</li>
+      </ul>
+    </blockquote>
+
+
+<dt><b>July 2004 &#x2022; Standard 1.1.1</b></dt><br>
+  <dd>Bugs fixed since Standard 1.1.0 Taglib release:</dd>
+  <ul>
+  <blockquote>
+    <table width="95%" border="1">
+      <tr>
+        <th width="27%">
+          <div align="center">
+            Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=16773">16773</a></div>
+        </td>
+        <td width="73%" height="15">Substituted static values where Boolean objects were created.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25382">25382</a></div>
+        </td>
+        <td width="73%" height="15">Optimization of the xml escaping used by JSTL Functions and the out tag handlers.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25967">25967</a></div>
+        </td>
+        <td width="73%" height="15">Removed synchronization on getEvaluatorByName() method. Now synchronizing on nameMap and allowing reads to occur without blocking. Should be a performance improvement.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center">
+          <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=26614">26614</a></div>
+        </td>
+        <td width="73%" height="15">Remove quotes from prefix when throwing an exception</td>
+      </tr>
+    </table>
+  </blockquote>
+  </ul>
+    <blockquote>
+      <p>Other changes and additions:</p>
+      <ul>
+        <li>Fixed Core TLV to allow EL and RT based actions to be mixed as allowed by the JSTL specification.</li>
+        <li>Trimmed sql dataSource attribute tokens so any spaces in the comma delimited list are ignored.</li>
+        <li>Added Junit and Cactus testing framework. Documentation is in README_src.txt available in the source distribution.</li>
+        <li>Updated licenses to the new Apache License, Version 2.0.</li>
+      </ul>
+    </blockquote>
+<dt><b>January 2004 &#149; Standard 1.1.0</b>
+<p>
+This is a complete implementation of the JSTL 1.1 Maintenance Release.
+<p>
+<dd>Bugs fixed since Standard 1.1.0-B1 Taglib release:</dd>
+<ul>
+  <blockquote>
+    <table width="95%" border="1">
+      <tr>
+        <th width="27%">
+          <div align="center">Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=15703">15703</a></div>
+        </td>
+        <td width="73%" height="15">Illegal scope attribute without var in "fmt:setLocale" tag</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24892">24892</a></div>
+        </td>
+        <td width="73%" height="15">ResultImpl should implement java.io.Serializable</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25637">25637</a></div>
+        </td>
+        <td width="73%" height="15">IteratorTagSupport example is missing </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=22860">22860</a></div>
+        </td>
+        <td width="73%" height="15">tag url generate invalid result for root context</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24597">24597</a></div>
+        </td>
+        <td width="73%" height="15">accept-language header missing and fallback locale</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=24863">24863</a></div>
+        </td>
+        <td width="73%" height="15">permittedTaglibs.tld and scriptfree.tld do not validate in xml parser</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25638">25638</a></div>
+        </td>
+        <td width="73%" height="15">Xml filter example doesn't work</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=26320">26320</a></div>
+        </td>
+        <td width="73%" height="15">&lt;c:out&gt; doesn't work properly when tag handlers are pooling</td>
+      </tr>
+    </table>
+  </blockquote>
+</ul>
+
+<blockquote> 
+  <p>Other changes and additions:</p>
+  <ul>
+    <li>Regarding bug #24892, it's important to note that relying on the serializability of Result objects might not be portable across different implementations of the JSTL spec. Also, ResultImpl will be serializable only if the values returned by the ResultSet are serializable too, which depends on the JDBC driver being used.
+  </ul>
+</blockquote>
+
+
+<dt><b>September 2003 &#149; Standard 1.1.0-B1</b></dt>
+<p>
+This is a complete implementation of the JSTL 1.1 Maintenance Release.
+<p>
+<dd>Bugs fixed since Standard 1.0.3 Taglib release:</dd>
+<ul>
+  <blockquote>
+    <table width="95%" border="1">
+      <tr>
+        <th width="27%">
+          <div align="center">Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=18498">18498</a></div>
+        </td>
+        <td width="73%" height="15">
+fmt:formatNumber now removes the scoped variable when the
+value is null or empty.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=16912">16912</a></div>
+        </td>
+        <td width="73%" height="15">
+c:param now encodes URL with URLEncoder.encode(str, encoding)
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=17388">17388</a></div>
+        </td>
+        <td width="73%" height="15">
+PreparedStatement used in sql:query closed immediately after use to avoid leaks.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=10024">10024</a></div>
+        </td>
+        <td width="73%" height="15">
+Advisory character encoding now properly fetched from "charset" attribute
+of "content-type" header (required change to spec)</td>
+      </tr>    
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=17440">17440</a></div>
+        </td>
+        <td width="73%" height="15">
+Fixed processing of Locale when variant is used.
+        </td>
+      </tr>    
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=20197">20197</a></div>
+        </td>
+        <td width="73%" height="15">
+&lt;sql:setDataSource&gt; did not allow the specification of a scope without
+a var attribute to set the SQl DataSource configuration setting. Fixed.
+        </td>
+      </tr>    
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=22034">22034</a></div>
+        </td>
+        <td width="73%" height="15">
+Page scope not properly set with &lt;c:if&gt;. Fixed.
+        </td>
+      </tr>    
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21188">21188</a></div>
+        </td>
+        <td width="73%" height="15">
+Config.find() fails on invalidated sessions. Fixed.
+        </td>
+      </tr>    
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=16775">16775</a></div>
+        </td>
+        <td width="73%" height="15">
+Consistent use JspTagException: (1) always include original exception when
+available. (2) use ex.toString() instead of getMessage().
+        </td>
+      </tr>    
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=22188">22188</a></div>
+        </td>
+        <td width="73%" height="15">
+Type conversion rules now properly applied when setting a bean property using
+&lt;c:set&gt;.
+        </td>
+      </tr>    
+    </table>
+  </blockquote>
+</ul>
+
+<blockquote> 
+  <p>Other changes and additions:</p>
+  <ul>
+    <li>Added Version class to easily tell the version of the jar file.</li>
+    <li>Added a few sample cases to highlight url rewriting and encoding.</li>
+    <li>New sample JSP page demoing I18N-Formatting capabilities.</li>
+    <li>Our dependency on jaxen and saxpath has been removed by switching
+        our XPath support to Xalan.</li>
+    <li>Added attribute descriptions in the TLDs.</li>
+    <li>javax.servlet.jsp.jstl.sql.ResultImpl now implements java.io.Serializable,
+and insert a comment in the Release Notes stating that relying on the
+serializability of Result objects might not be portable across
+different implementations of the JSTL spec
+  </ul>
+</blockquote>
+
+
+<dt><b>February 2003 &#149; Standard 1.0.3</b></dt>
+<p><dd>Bugs fixed since Standard 1.0.2 Taglib release:</dd>
+<ul>
+  <blockquote>
+    <table width="95%" border="1">
+      <tr>
+        <th width="27%">
+          <div align="center">Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=16069">16069</a></div>
+        </td>
+        <td width="73%" height="15">
+        Tag-handler reuse discovered a bug in <c:out>'s processing of default
+        values.  This bug was fixed by initializing an instance variable
+        in doStartTag().
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8694">8694</a></div>
+        </td>
+        <td width="73%" height="15">We revisited this bug prompted by a
+report from a user of the J2EE RI and adjusted the EL implementation to
+accommodate the J2EE RI's default security restrictions.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=15977">15977</a></div>
+        </td>
+        <td width="73%" height="15">
+	Minor display-related bug in ScriptFreeTLV
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=14695">14695</a></div>
+        </td>
+        <td width="73%" height="15">
+There still was a bug when the <code>fmt:message</code> tag was pooled 
+and reused, and a bundle was not specified explicitely.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=15169">15169</a></div>
+        </td>
+        <td width="73%" height="15">
+Added <code>&lt;uri&gt;</code> definition in WEB-INF/jstl-examples.tld for
+/jstl-examples-taglib.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=15495">15495</a></div>
+        </td>
+        <td width="73%" height="15">
+If <c:set> is used to set a property of a bean, and a setter method 
+does not exist for that bean, a NullPointerException was thrown.
+A JspException with an appropriate error message is now thrown instead.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=15621">15621</a></div>
+        </td>
+        <td width="73%" height="15">
+The tag handler for &lt;fmt:requestEncoding&gt; was not resetting the encoding value it picks up from the
+javax.servlet.jsp.jstl.fmt.request.charset session attribute between invokations.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=15873">15873</a></div>
+        </td>
+        <td width="73%" height="15">
+We now expose the exception object thrown by a bean property evaluated by the
+EL (not just the exception message).
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=16377">16377</a></div>
+        </td>
+        <td width="73%" height="15">
+Improved the exception message when there is a failure accessing an absolute URL.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a
+href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=16379">16379</a></div>
+        </td>
+        <td width="73%" height="15">
+Fixed minor typos in standard-examples.
+        </td>
+      </tr>
+    </table>
+  </blockquote>
+</ul>
+<blockquote> 
+  <p>Other changes and additions:</p>
+  <ul>
+    <li>Fixed minor typos in JSTL API Javadoc documentation.</li>
+    <li>Added TLV examples (scriptFree and PermittedTaglibs)</li>
+    <li>Fixed minor typo on standard/examples/web/xml/ForEach.jsp</li>
+    <li>Improved Japanese localization</li>
+  </ul>
+</blockquote>
+
+<dt><b>13 October 2002 &#149; Standard 1.0.2 Taglib released</b></dt>
+<p>
+<dd>Bugs fixed since Standard 1.0.1 Taglib release:</dd>
+<ul>
+  <blockquote>
+    <table width="95%" border="1">
+      <tr>
+        <th width="27%">
+          <div align="center">Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=11204">11204</a></div>
+        </td>
+        <td width="73%" height="15">The <code>fmt</code> tags used to store the <code>BodyContent</code>
+          from one tag in the same field variable they use for <code>value</code>. This caused problems
+          in a container that supported tag re-use since the old <code>BodyContent</code> was used.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=11293">11293</a></div>
+        </td>
+        <td width="73%" height="15">The <code>xml:transform</code> tag can now be used with a series of imported
+          stylesheets.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=12333">12333</a></div>
+        </td>
+        <td width="73%" height="15">There was a bug in the EL grammar that caused attribute values like <tt>"$${X}"</tt> to be parsed as a single string instead of a string followed by an expression.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=12963">12963</a></div>
+        </td>
+        <td width="73%" height="15">The <code>&lt;c:url&gt;</code> <code>value</code> attribute and the <code>
+          &lt;c:redirect&gt;</code> <code>url</code> attribute are required as defined in the JSTL specification.</td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=13405">13405</a></div>
+        </td>
+        <td width="73%" height="15">According to the JDBC specification, a null can be passed to the <code>PreparedStatement.setObject()</code> and the parameter will be set to JDBC NULL properly. The broken <code>PreparedStatment.setNull()</code> call has been removed.
+        </td>
+      </tr>
+      <tr>
+        <td width="27%" height="15">
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=13518">13518</a></div>
+        </td>
+        <td width="73%" height="15">There was a typographical error in our sample TLDs for the PermittedTaglibTLV and ScriptFreeTLV validators.
+        </td>
+      </tr>
+    </table>
+  </blockquote>
+</ul>
+<blockquote> 
+  <p>Other changes and additions:</p>
+  <ul>
+    <li>Wrapped number formatting examples that use browser-based locale inside <c:catch>. Now the parse 
+      exception that occurs with "de_DE" locale due to a bug in <code>java.text.NumberFormat</code> 
+      (Bugtraq bugid: 4709840) can be documented appropriately.
+    </li>
+    <li>The "jsp20el.build" target was modified so that the JSTP 2.0 EL packages were renamed to avoid potential
+      JSTL 1.0 conflict.
+    </li>
+    <li>Root cause now exposed when an EL expression evaluation fails.
+    </li>
+    <li>New regression tests for the EL parser.</li>
+  </ul>
+</blockquote>
+
+<dt><b>26 July 2002 &#149; Standard 1.0.1 Taglib released</b></dt>
+<p><dd>Bugs fixed since Standard 1.0 Taglib 
+Final release: </dd>
+</blockquote>
+<ul>
+  <blockquote> 
+    <table width="95%" border="1">
+      <tr> 
+        <th width="27%"> 
+          <div align="center">Bug Id</div>
+        </th>
+        <th width="73%">Summary</th>
+      </tr>
+      <tr> 
+        <td width="27%" height="15"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=8723">8723</a></div>
+        </td>
+        <td width="73%" height="15">Fixed '<code>xslt</code>' attribute for <code>&lt;x:transform&gt;</code> 
+          to only accept an<br>
+          object exported by <code>&lt;x:parse&gt;</code> if it's a <code>String</code>, 
+          <code>Reader</code>, or<br>
+          <code>javax.xml.transform.Source</code>.</td>
+      </tr>
+      <tr> 
+        <td width="27%" height="15"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9257">9257</a></div>
+        </td>
+        <td width="73%" height="15">Added <code>&quot;UNICODE_INPUT = true&quot;</code> 
+          to the <code>ELParser.jj</code><br>
+          options so that non-ascii values can be parsed.</td>
+      </tr>
+      <tr> 
+        <td width="27%"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9528">9528</a></div>
+        </td>
+        <td width="73%"><code>GettingStarted.html</code> guide updated to include 
+          all jar dependency information. </td>
+      </tr>
+      <tr> 
+        <td width="27%"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9581">9581</a></div>
+        </td>
+        <td width="73%">SQL examples updated to allow for the inputting of <code>dataSource</code> 
+          username and password.</td>
+      </tr>
+      <tr> 
+        <td width="27%"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=9968">9968</a></div>
+        </td>
+        <td width="73%"><code>c:url</code> tag no longer prepends path to page 
+          relative URLs. </td>
+      </tr>
+      <tr> 
+        <td width="27%"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=10175">10175</a></div>
+        </td>
+        <td width="73%">Added a <code>&lt;welcome-file-list&gt;</code> element 
+          to the example application's deployment descriptor. Modified <code>standard-doc</code> 
+          in a corresponding fashion.</td>
+      </tr>
+      <tr> 
+        <td width="27%" height="32"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=10334">10334</a></div>
+        </td>
+        <td width="73%" height="32"> 
+          <p><code>BundleSupport</code> modified to use the current context classloader 
+            instead of the classloader that loaded it. This change was necessary 
+            in order for <code>BundleSupport</code> to properly find resources 
+            in a web application.</p>
+          <p>The SQL <code>DataSourceWrapper</code> also modified to properly 
+            use classloader delegation to load resources.</p>
+        </td>
+      </tr>
+      <tr> 
+        <td width="27%"> 
+          <div align="center"><a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=10856">10856</a></div>
+        </td>
+        <td width="73%">Fixed incorrect <code>x:param</code> error message.</td>
+      </tr>
+    </table>
+  </blockquote>
+</ul>
+<blockquote> 
+  <p>Other changes and additions:</p>
+  <ul>
+    <li>Improved <code>x:parse</code> action's <code>EntityResolver</code> to 
+      work with JAXP 1.2. URI's normalized so they can be processed consistently.</li>
+    <li> The <a href="http://java.sun.com/products/jstl">JSTL 1.0 Specification</a> 
+      has all the official functional descriptions; out of date documentation 
+      removed.</li>
+    <li>Hard-coded and browser-based locales separated into distinct pages in 
+      order to avoid conflicting response encodings.</li>
+    <li>Formatting web application examples updated to use EL to access request 
+      parameters.</li>
+    <li><code>query</code> and <code>update </code>tags modified to catch a more 
+      generic JDBC driver implementation generated exception when it occurs and 
+      provide a meaningful error message.</li>
+    <li><code>DateParam</code> tag modified to have an empty body content as defined 
+      by the spec.</li>
+    <li><code>PreparedStatement.setNull(parameterIndex, java.sql.Types.NULL)</code> 
+      now used when specifying null parameter values.</li>
+    <li>XPath performance improved by caching parsed representations of XPath 
+      expressions.</li>
+    <li>Support for relative system ID's in <code>&lt;x:transform&gt;</code> simplified.</li>
+    <li>Improved <code>TimeZoneSupport</code> javadocs</li>
+    <li>Added Japanese resources</li>
+    <li>Added support for <a href="http://www.jcp.org/jsr/detail/152.jsp">JSP 
+      2.0</a> functionality in the JSTL EL. By default, none of the new features 
+      are enabled in order to comply with the <a href="http://java.sun.com/products/jstl">JSTL 
+      1.0 Specification</a>. The functionality will be triggered by a particular 
+      way of calling the interpreter. 
+      <ul>
+        <li>Created new new &quot;<code>jsp20</code>&quot; parser directory. </li>
+        <li>Added new &quot;<code>jsp20e</code>l&quot; build target for <a href="http://www.jcp.org/jsr/detail/152.jsp">JSP 
+          2.0</a> specific features. </li>
+        <li>Added copy of <code>*.properties</code> to <a href="http://www.jcp.org/jsr/detail/152.jsp">JSP 
+          2.0</a> EL jar.</li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+<dt><b>21 Jun 2002</b></dt>
+<dd>Final Standard Taglib 1.0 release</dd>
+
+<p><dt><b>17 Jun 2002</b></dt>
+<dd>Standard Taglib RC1 released.</dd>
+<dd>&nbsp;</dd>
+
+<dt><b>19 Apr 2002 </b></dt>
+<dd>Standard 1.0 Beta2 released, which is compliant with the <a href="http://jcp.org/aboutJava/communityprocess/first/jsr052/">JSTL Proposed Final Draft</a>.</dd>
+
+<p><dt><b>12 Mar 2002 </b></dt>
+<dd>Standard 1.0 Beta1 released, which is compliant with the <a href="http://jcp.org/aboutJava/communityprocess/review/jsr052/">JSTL Public Review Draft</a>.</dd>
+
+<p><dt><b>12 Dec 2001</b></dt>
+<dd>Standard 1.0 EA3 released.  Version includes the following
+changes and additions:
+<ul>
+ <li>Introduction of SQL tags ("sql:*" library).</li>
+ <li>A performance improvement to the XML "transform" tag.</li>
+ <li>Minor changes and bug fixes to the i18n and XML libraries.</li>
+ <li>Distribution JAR files are now 'standard.jar' (RI) and 'jstl.jar'
+     (API).</li>
+ <li>showSource.jsp no longer depends on raw file I/O (and so 
+     should work even when standard-examples is deployed as a WAR).</li> 
+</ul>
+</dd>
+
+<dt><b>21 Nov 2001</b></dt>
+<dd>Standard 1.0 EA2 introduced.  Version includes the following
+major changes and additions:
+<ul>
+ <li>JSPTL has been renamed to JSTL.</li>
+ <li>The "jsptl" library at Jakarta Taglibs has been renamed to
+     "standard."</li>
+ <li>Tags for text inclusion and URL encoding introduced.</li>
+ <li>Tags for i18n-capable text formatting introduced.</li>
+ <li>Tags for XML manipulation introduced.</li>
+ <li>JSTL now divides functionality among multiple TLDs.  Each TLD represents
+     a cohesive unit of functionality, such as "XML manipulation" and
+     "formatting."  'jx' and 'jr' are no longer used; they are replaced
+     with shorter abbreviations for the common cases (e.g., 'c', 'x').
+ <li>ECMAScript is now the default expression evaluator.  Since the
+     first release of 1.0 EA1, new languages include JXPath and ECMAScript.</li>
+ <li>The RI has been thoroughly repackaged; many classes have moved.</li>
+ <li>The package name for the JSTL API is now javax.servlet.jsp.jstl
+     and is subdivided into cohesive packages.  (The old package for the
+     API was javax.servlet.jsptl.)</li>
+ <li>A small number of minor changes were made to the code.  By and large,
+     these changes are not significant; the easiest way to discover
+     further details is to look at the CVS archive itself.</li>
+</ul>
+</dd>
+
+<p><dt><b>09 Oct 2001</b></dt>
+<dd>JSTL 1.0 EA1 RI, version 1.2, introduced.  This version includes support
+for ECMAScript.</dd>
+
+<p><dt><b>23 Jul 2001</b></dt>
+<dd>JSTL 1.0 EA1 RI, version 1.1, is released.  This version is compatible
+with Tomcat 4.0 B6 and Tomcat 4.0 release.</dd>
+
+<p><dt><b>10 Jul 2001</b></dt>
+<dd>JSTL 1.0 EA1 RI first made available for download.</dd>
+
+<p><dt><b>08 Jul 2001</b></dt>
+<dd>Initial version of JSTL RI contributed by JSR-052 Expert Group and imported 
+  into Jakarta CVS archive.</dd>
+
+
+</body>
+</html>
