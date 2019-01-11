@@ -96,6 +96,7 @@ public class PlayServlet extends HttpServlet {
                 if (sum <= 0) {
                     UserDao ud = new UserDao();
 
+                    User u = ud.selectUserById(uid);
                     List<User> list = ud.rankAll();
                     if (list != null) {
                         //succ
@@ -112,6 +113,7 @@ public class PlayServlet extends HttpServlet {
                         // 在实际开发中我们的总页数可以根据sql语句得到查询到的总条数，然后用总条数除每页的条数得到总页数
                         request.setAttribute("countPage", countPage);
                         request.setAttribute("list", list);
+                        request.setAttribute("user", u);
                         request.getRequestDispatcher("score-index.jsp").forward(request, response);
                     }
                     //游戏继续

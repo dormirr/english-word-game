@@ -137,7 +137,7 @@ public class UserDao {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("UPDATE 用户 SET 密码=?where 用户序号=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE 用户 SET 密码=? where 用户序号=?");
             stmt.setString(1, user.getPwd());
             stmt.setInt(2, user.getId());
             int result = stmt.executeUpdate();
