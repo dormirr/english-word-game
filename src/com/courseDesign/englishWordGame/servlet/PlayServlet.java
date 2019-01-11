@@ -3,6 +3,7 @@ package com.courseDesign.englishWordGame.servlet;
 import com.courseDesign.englishWordGame.dao.NotesDao;
 import com.courseDesign.englishWordGame.dao.UserDao;
 import com.courseDesign.englishWordGame.dao.WordDao;
+import com.courseDesign.englishWordGame.pojo.Notes;
 import com.courseDesign.englishWordGame.pojo.User;
 import com.courseDesign.englishWordGame.pojo.Word;
 
@@ -36,11 +37,24 @@ public class PlayServlet extends HttpServlet {
             //记录错误次数
             int sum = 3;
 
+
+            //生成数据
             List<Word> listtrue = ud.selectOne();
             List<Word> listflase = ud.selectThree();
             List<Word> listall = new ArrayList<Word>();
             listall.addAll(listtrue);
             listall.addAll(listflase);
+
+            //添加记录
+            NotesDao uddd = new NotesDao();
+            Notes n = new Notes();
+            n.setUid(u.getId());
+            n.setWid(listtrue.get(0).getId());
+            n.setFrequency(0);
+            boolean result = uddd.insertOne(n);
+
+            //初始化积分
+            System.out.println(udd.updateDifficulty(u, 0));
 
             //打乱list
             Collections.shuffle(listall);
@@ -53,6 +67,7 @@ public class PlayServlet extends HttpServlet {
 
             if (listtrue != null && listflase != null) {
                 //succ
+                request.setAttribute("difficulty",udd.selectDifficulty(uid));
                 request.setAttribute("listtrue", listtrue);
                 request.setAttribute("listall", listall);
                 request.setAttribute("user", u);
@@ -72,17 +87,23 @@ public class PlayServlet extends HttpServlet {
                 NotesDao uddd = new NotesDao();
 
                 User u = udd.selectUserById(uid);
+
+                //生成数据
                 List<Word> listtrue = ud.selectOne();
                 List<Word> listflase = ud.selectThree();
                 List<Word> listall = new ArrayList<Word>();
                 listall.addAll(listtrue);
                 listall.addAll(listflase);
 
+                //积分加一
+                udd.updateDifficulty(u, udd.selectDifficulty(uid) + 1);
+
                 //打乱list
                 Collections.shuffle(listall);
 
                 if (listtrue != null && listflase != null) {
                     //succ
+                    request.setAttribute("difficulty",udd.selectDifficulty(uid));
                     request.setAttribute("listtrue", listtrue);
                     request.setAttribute("listall", listall);
                     request.setAttribute("user", u);
@@ -92,14 +113,33 @@ public class PlayServlet extends HttpServlet {
                 //选错
             } else {
                 sum--;
+
+                //添加记录
+                WordDao ud = new WordDao();
+                UserDao udd = new UserDao();
+                NotesDao uddd = new NotesDao();
+                Notes n = new Notes();
+
+                User u = udd.selectUserById(uid);
+                n = uddd.selectNotes(uid, request.getParameter("tid"));
+                if (n != null) {
+                    uddd.updateOne(n, n.getFrequency() + 1);
+                } else {
+                    //添加记录
+                    Notes nn = new Notes();
+                    nn.setUid(u.getId());
+                    nn.setWid(tid);
+                    nn.setFrequency(1);
+                    uddd.insertOne(nn);
+                }
+
                 //游戏结束
                 if (sum <= 0) {
-                    UserDao ud = new UserDao();
 
-                    User u = ud.selectUserById(uid);
-                    List<User> list = ud.rankAll();
+                    List<User> list = udd.rankAll();
                     if (list != null) {
                         //succ
+
                         //分页
                         int pageNos;
                         if (request.getParameter("pageNos") == null || Integer.parseInt(request.getParameter("pageNos")) < 1) {
@@ -118,10 +158,6 @@ public class PlayServlet extends HttpServlet {
                     }
                     //游戏继续
                 } else {
-                    WordDao ud = new WordDao();
-                    UserDao udd = new UserDao();
-
-                    User u = udd.selectUserById(uid);
                     List<Word> listtrue = ud.selectOne();
                     List<Word> listflase = ud.selectThree();
                     List<Word> listall = new ArrayList<Word>();
@@ -133,6 +169,7 @@ public class PlayServlet extends HttpServlet {
 
                     if (listtrue != null && listflase != null) {
                         //succ
+                        request.setAttribute("difficulty",udd.selectDifficulty(uid));
                         request.setAttribute("listtrue", listtrue);
                         request.setAttribute("listall", listall);
                         request.setAttribute("user", u);

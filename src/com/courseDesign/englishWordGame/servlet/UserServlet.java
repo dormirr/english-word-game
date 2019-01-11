@@ -1,6 +1,7 @@
 package com.courseDesign.englishWordGame.servlet;
 
 import com.courseDesign.englishWordGame.dao.UserDao;
+import com.courseDesign.englishWordGame.dao.WordDao;
 import com.courseDesign.englishWordGame.pojo.User;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @WebServlet(name = "UserServlet", urlPatterns = {"/userServlet"})
 public class UserServlet extends HttpServlet {
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
@@ -56,7 +57,7 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("list", list);
                 request.getRequestDispatcher("table-list.jsp").forward(request, response);
             }
-        } */else if ("update".equals(type)) {
+        } */ else if ("update".equals(type)) {
             request.setCharacterEncoding("utf-8");
 
             int uid = Integer.parseInt(request.getParameter("id"));
@@ -93,7 +94,34 @@ public class UserServlet extends HttpServlet {
                 request.getRequestDispatcher("password-changing.jsp").forward(request, response);
             }
 
-        } /*else if ("like".equals(type)) {
+        } else if ("rank".equals(type)) {
+            WordDao ud = new WordDao();
+            UserDao udd = new UserDao();
+
+            String uid = request.getParameter("id");
+            User u = udd.selectUserById(uid);
+
+            List<User> list = udd.rankAll();
+            if (list != null) {
+                //succ
+
+                //分页
+                int pageNos;
+                if (request.getParameter("pageNos") == null || Integer.parseInt(request.getParameter("pageNos")) < 1) {
+                    pageNos = 1;
+                } else {
+                    pageNos = Integer.parseInt(request.getParameter("pageNos"));
+                }
+                request.setAttribute("pageNos", pageNos);
+                // 定义总页数并存到session中
+                int countPage = ud.selectNum() / 15;
+                // 在实际开发中我们的总页数可以根据sql语句得到查询到的总条数，然后用总条数除每页的条数得到总页数
+                request.setAttribute("countPage", countPage);
+                request.setAttribute("list", list);
+                request.setAttribute("user", u);
+                request.getRequestDispatcher("score-index.jsp").forward(request, response);
+            }
+        }/*else if ("like".equals(type)) {
             request.setCharacterEncoding("utf-8");
 
             //2.获取str

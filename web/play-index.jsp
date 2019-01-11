@@ -35,13 +35,13 @@
 <section id="intro" class="main style1 dark fullscreen">
     <div class="content">
         <header>
-            <h2>你的积分为：</h2>
+            <h2>你的积分为：${difficulty }</h2>
         </header>
         <p><strong>你还有${sum }次机会</strong></p>
         <input type="hidden" id="id" value="${user.id }">
         <input type="hidden" id="sum" value="${sum }">
         <footer>
-            <a href="#work" class="button style2 down"></a>
+            <a href="#work" class="button style2 down" onclick="CountDown()"></a>
         </footer>
     </div>
 </section>
@@ -93,8 +93,8 @@
             <h2>计时</h2>
             <p id="timer"></p>
             <p>
-                <a href="word-index.jsp"><span>单词库</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="score-index.jsp"><span>积分排名</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="wordServlet?type=selectAll"><span>单词库</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="userServlet?type=rank&&id=${user.id }"><span>积分排名</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="my-index.jsp"><span>个人数据</span></a>
             </p>
         </header>

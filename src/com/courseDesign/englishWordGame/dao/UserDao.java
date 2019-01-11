@@ -152,6 +152,26 @@ public class UserDao {
         }
     }
 
+    public boolean updateDifficulty(User user, int difficulty) {
+        try {
+            //1.得到一个连接
+            Connection conn = DBUtil.getConn();
+            //2.得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("UPDATE 用户 SET 累计积分=? where 用户序号=?");
+            stmt.setInt(1, difficulty);
+            stmt.setInt(2, user.getId());
+            int result = stmt.executeUpdate();
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public User selectUserById(String uid) {
         try {
@@ -175,6 +195,22 @@ public class UserDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int selectDifficulty(String uid) {
+        try {
+            //1.得到一个连接
+            Connection conn = DBUtil.getConn();
+            //2.得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("select 累计积分 from 用户 where 用户序号=?");
+            stmt.setInt(1, Integer.parseInt(uid));
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return rs.getInt("累计积分");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 

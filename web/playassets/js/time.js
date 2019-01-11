@@ -1,3 +1,4 @@
+//为a标签注册onclick事件
 //按秒计算
 var maxtime = 5;
 var sum = document.getElementById('sum').value;
@@ -11,6 +12,5 @@ function CountDown() {
     } else {
         window.location.href = 'playServlet?type=judge&&id=' + id + '&&fid=0&&tid=1&&sum=' + sum;
     }
+    timer = setInterval("CountDown()", 1000);
 }
-
-timer = setInterval("CountDown()", 1000);

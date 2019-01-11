@@ -39,9 +39,10 @@ public class NotesDao {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("insert into 记录(用户序号,单词序号) values(?,?)");
+            PreparedStatement stmt = conn.prepareStatement("insert into 记录(用户序号,单词序号,次数) values(?,?,?)");
             stmt.setInt(1, user.getUid());
             stmt.setInt(2, user.getWid());
+            stmt.setInt(3, 0);
             int result = stmt.executeUpdate();
 
             if (result != -1) {
@@ -55,13 +56,13 @@ public class NotesDao {
         }
     }
 
-    public boolean updateOne(Notes user) {
+    public boolean updateOne(Notes user,int frequency) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
             PreparedStatement stmt = conn.prepareStatement("UPDATE 记录 SET 次数=? where 用户序号=? and 单词序号=?");
-            stmt.setInt(1, user.getFrequency());
+            stmt.setInt(1, frequency);
             stmt.setInt(2, user.getUid());
             stmt.setInt(3, user.getWid());
             int result = stmt.executeUpdate();
@@ -83,6 +84,29 @@ public class NotesDao {
             //2.得到操作数据库对象
             PreparedStatement stmt = conn.prepareStatement("select * from 记录 where 用户序号=?");
             stmt.setInt(1, Integer.parseInt(uid));
+            ResultSet rs = stmt.executeQuery();
+            Notes user = null;
+            while (rs.next()) {
+                user = new Notes();
+                user.setUid(rs.getInt("用户序号"));
+                user.setWid(rs.getInt("单词序号"));
+                user.setFrequency(rs.getInt("次数"));
+            }
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Notes selectNotes(String uid,String wid) {
+        try {
+            //1.得到一个连接
+            Connection conn = DBUtil.getConn();
+            //2.得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("select * from 记录 where 用户序号=? and 单词序号=?");
+            stmt.setInt(1, Integer.parseInt(uid));
+            stmt.setInt(2, Integer.parseInt(wid));
             ResultSet rs = stmt.executeQuery();
             Notes user = null;
             while (rs.next()) {

@@ -146,7 +146,7 @@ public class WordDao {
             e.printStackTrace();
             return false;
         }
-    }
+    }*/
 
 
     public Word selectUserById(String uid) {
@@ -170,7 +170,7 @@ public class WordDao {
             e.printStackTrace();
             return null;
         }
-    }*/
+    }
 
     public List<Word> selectLike(String str) {
         try {
