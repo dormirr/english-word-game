@@ -3,7 +3,6 @@ package com.courseDesign.englishWordGame.servlet;
 import com.courseDesign.englishWordGame.dao.NotesDao;
 import com.courseDesign.englishWordGame.dao.UserDao;
 import com.courseDesign.englishWordGame.dao.WordDao;
-import com.courseDesign.englishWordGame.pojo.Notes;
 import com.courseDesign.englishWordGame.pojo.User;
 import com.courseDesign.englishWordGame.pojo.Word;
 
