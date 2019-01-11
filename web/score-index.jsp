@@ -1,8 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: dormirr
-  Date: 19-1-9
-  Time: 下午2:38
+  Date: 19-1-11
+  Time: 上午9:39
+  To change this template use File | Settings | File Templates.
+--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: dormirr
+  Date: 19-1-8
+  Time: 下午2:00
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -28,38 +35,27 @@
 
         <!-- Header -->
         <header id="header">
-            <h1>单词库</h1>
-            <p>欢迎您&bull;${user.name }</p>
-            <a href="add-words.jsp"><span class="label">增加单词</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <form action="wordServlet?type=like" method="post">
-                <input name="str" type="text" placeholder="请输入要搜索的内容"
-                       style="background:transparent;border:1px solid #ffffff">
-                <button type="submit" style="background:transparent;border:0px solid #ffffff;color:#ffffff">
-                    <span>搜索</span>
-                </button>
-            </form>
-
+            <h1>游戏积分排名</h1>
+            <p>欢迎您 &nbsp;&bull;&nbsp; ${user.name }</p>
+            <p><a href="wordServlet?type=selectAll&&id=${user.id }"><span class="label">修改密码</span></a></p>
             <table width="100%">
                 <thead>
                 <tr align="center">
-                    <th>单词序号</th>
-                    <th>单词英文</th>
-                    <th>单词中文</th>
-                    <th>难度</th>
-                    <th>编辑</th>
+                    <th>序号</th>
+                    <th>账号</th>
+                    <th>单局最高积分</th>
+                    <th>累计积分</th>
+                    <th>累计积分排名</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${list }" var="item" begin="${(pageNos-1)*15 }" end="${pageNos*15-1}">
+                <c:forEach items="${list }" var="item">
                     <tr align="center">
                         <td>${item.id }</td>
-                        <td>${item.word }</td>
-                        <td>${item.chinese }</td>
-                        <td>${item.difficulty }</td>
-                        <td>
-                            <a href="javascript:if(confirm('确实要删除该内容吗?')){location='wordServlet?type=delete&&uid=${item.id }'}">删除
-                            </a>
-                        </td>
+                        <td>${item.name }</td>
+                        <td>${item.highestScore }</td>
+                        <td>${item.grandTotalScore }</td>
+                        <td>${item.ranking }</td>
                     </tr>
                 </c:forEach>
                 </tbody>

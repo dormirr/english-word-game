@@ -3,4 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <!--检测用户是否登录的过滤器配置-->
+    <!--用户信息存放到session中的键的名字-->
+    <context-param>
+        <param-name>userSessionKey</param-name>
+        <param-value>name</param-value>
+    </context-param>
+
+    <!--若未登录，需要重定向的页面-->
+    <context-param>
+        <param-name>redirectPage</param-name>
+        <param-value>/login.jsp</param-value>
+    </context-param>
+
+    <!--不需要拦截的URL列表;注意配置时不要拦截后台对用户和密码判断的页面,否则可能登录登录不进主界面-->
+    <context-param>
+        <param-name>uncheckedUrls</param-name>
+        <param-value>/sign-up.jsp,/login.jsp</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>FilterServlet</filter-name>
+        <filter-class>com.courseDesign.englishWordGame.servlet.FilterServlet</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>FilterServlet</filter-name>
+        <!--过滤站点下所有文件,也可设置成过滤某一类文件如:  "*.jsp" 或是过滤掉某一个文件夹下的所有文件,如: "/目录名/*" -->
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
 </web-app>
