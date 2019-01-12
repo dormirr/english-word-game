@@ -4,9 +4,16 @@ public class User {
     private int id;
     private String name;
     private String pwd;
-    private int highestScore;
     private int grandTotalScore;
-    private int Ranking;
+    private int ranking;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -24,14 +31,6 @@ public class User {
         this.pwd = pwd;
     }
 
-    public int getHighestScore() {
-        return highestScore;
-    }
-
-    public void setHighestScore(int highestScore) {
-        this.highestScore = highestScore;
-    }
-
     public int getGrandTotalScore() {
         return grandTotalScore;
     }
@@ -41,19 +40,11 @@ public class User {
     }
 
     public int getRanking() {
-        return Ranking;
+        return ranking;
     }
 
     public void setRanking(int ranking) {
-        Ranking = ranking;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.ranking = ranking;
     }
 
     @Override
@@ -62,9 +53,8 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", pwd='" + pwd + '\'' +
-                ", highestScore=" + highestScore +
                 ", grandTotalScore=" + grandTotalScore +
-                ", Ranking=" + Ranking +
+                ", ranking=" + ranking +
                 '}';
     }
 }

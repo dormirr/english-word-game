@@ -1,7 +1,6 @@
 package com.courseDesign.englishWordGame.util;
 
 import com.courseDesign.englishWordGame.pojo.User;
-import com.courseDesign.englishWordGame.pojo.Word;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

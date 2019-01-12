@@ -1,37 +1,19 @@
 package com.courseDesign.englishWordGame.pojo;
 
 public class Notes {
-    int uid;
-    int wid;
-    int frequency;
-    String word;
-    String chinese;
+    private int id;
+    private int uid;
+    private int wid;
+    private int frequency;
+    private String word;
+    private String chinese;
 
-    @Override
-    public String toString() {
-        return "Notes{" +
-                "uid=" + uid +
-                ", wid=" + wid +
-                ", frequency=" + frequency +
-                ", word='" + word + '\'' +
-                ", chinese='" + chinese + '\'' +
-                '}';
+    public int getId() {
+        return id;
     }
 
-    public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    public String getChinese() {
-        return chinese;
-    }
-
-    public void setChinese(String chinese) {
-        this.chinese = chinese;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUid() {
@@ -58,4 +40,31 @@ public class Notes {
         this.frequency = frequency;
     }
 
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getChinese() {
+        return chinese;
+    }
+
+    public void setChinese(String chinese) {
+        this.chinese = chinese;
+    }
+
+    @Override
+    public String toString() {
+        return "Notes{" +
+                "id=" + id +
+                ", uid=" + uid +
+                ", wid=" + wid +
+                ", frequency=" + frequency +
+                ", word='" + word + '\'' +
+                ", chinese='" + chinese + '\'' +
+                '}';
+    }
 }

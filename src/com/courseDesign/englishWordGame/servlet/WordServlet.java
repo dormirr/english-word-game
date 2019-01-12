@@ -44,7 +44,7 @@ public class WordServlet extends HttpServlet {
                 //分页
                 Pagination p = new Pagination();
                 p.pagination(request);
-                int countPage = wd.selectNum() / 15+1;
+                int countPage = wd.selectNum() / 15 + 1;
 
                 request.setAttribute("countPage", countPage);
                 request.setAttribute("list", list);
@@ -74,7 +74,7 @@ public class WordServlet extends HttpServlet {
                 //分页
                 Pagination p = new Pagination();
                 p.pagination(request);
-                int countPage = wd.selectNum() / 15+1;
+                int countPage = wd.selectNum() / 15 + 1;
 
                 request.setAttribute("countPage", countPage);
                 request.setAttribute("list", list);
@@ -129,7 +129,7 @@ public class WordServlet extends HttpServlet {
                 Pagination p = new Pagination();
                 p.pagination(request);
 
-                int countPage = wd.selectNum() / 15+1;
+                int countPage = wd.selectNum() / 15 + 1;
 
                 request.setAttribute("countPage", countPage);
                 request.setAttribute("list", list);

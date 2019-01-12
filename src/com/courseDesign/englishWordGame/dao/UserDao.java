@@ -52,7 +52,6 @@ public class UserDao {
                 user.setId(rs.getInt("用户序号"));
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
-                user.setHighestScore(rs.getInt("单局最高积分"));
                 user.setGrandTotalScore(rs.getInt("累计积分"));
                 user.setRanking(rs.getInt("累计积分排名"));
                 list.add(user);
@@ -78,9 +77,7 @@ public class UserDao {
                 user.setId(rs.getInt("用户序号"));
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
-                user.setHighestScore(rs.getInt("单局最高积分"));
                 user.setGrandTotalScore(rs.getInt("累计积分"));
-                user.setRanking(rs.getInt("累计积分排名"));
                 list.add(user);
             }
             return list;
@@ -110,27 +107,6 @@ public class UserDao {
             return false;
         }
     }
-
-
-    /*public boolean deleteOne(String uid) {
-        try {
-            //2.得到一个连接
-            Connection conn = DBUtil.getConn();
-            //3.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("DELETE FROM EMP WHERE EMPNO = ?");
-            stmt.setInt(1, Integer.parseInt(uid));
-            int result = stmt.executeUpdate();
-
-            if (result > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }*/
 
     public boolean updateOne(User user) {
         try {
@@ -187,9 +163,7 @@ public class UserDao {
                 user.setId(rs.getInt("用户序号"));
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
-                user.setHighestScore(rs.getInt("单局最高积分"));
                 user.setGrandTotalScore(rs.getInt("累计积分"));
-                user.setRanking(rs.getInt("累计积分排名"));
             }
             return user;
         } catch (Exception e) {
@@ -213,36 +187,6 @@ public class UserDao {
             return 0;
         }
     }
-
-    /*public List<User> selectLike(String str, String strr) {
-        try {
-            //2.得到一个连接
-            Connection conn = DBUtil.getConn();
-            //3.得到操作数据库对象
-            //模糊查询前strr条；
-            String sql = "select * from EMP where 1 and CONCAT(ENAME,DEPTNO) like '%" + str + "%'" + "limit " + strr;
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();//执行
-            List<User> list = new ArrayList<User>();
-            //bean对象封装
-            while (rs.next()) {
-                User user = new User();
-                user.setEmpno(rs.getInt("EMPNO"));
-                user.setEname(rs.getString("ENAME"));
-                user.setEpwd(rs.getString("EPWD"));
-                user.setDeptno(rs.getString("DEPTNO"));
-                user.setJob(rs.getString("JOB"));
-                user.setSal(rs.getFloat("SAL"));
-                user.setComm(rs.getFloat("COMM"));
-                user.setHiredate(rs.getString("HIREDATE"));
-                list.add(user);
-            }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 
     public int selectNum() {
         try {

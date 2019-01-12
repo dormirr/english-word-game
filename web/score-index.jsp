@@ -43,7 +43,6 @@
                 <tr align="center">
                     <th>序号</th>
                     <th>账号</th>
-                    <th>单局最高积分</th>
                     <th>累计积分</th>
                     <th>累计积分排名</th>
                 </tr>
@@ -53,7 +52,6 @@
                     <tr align="center">
                         <td>${item.id }</td>
                         <td>${item.name }</td>
-                        <td>${item.highestScore }</td>
                         <td>${item.grandTotalScore }</td>
                         <td>${item.ranking }</td>
                     </tr>
@@ -65,12 +63,12 @@
         <!-- Footer -->
         <footer id="footer">
             <c:if test="${pageNos > 1 }">
-                <a href="wordServlet?type=selectAll&&pageNos=1">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="wordServlet?type=selectAll&&pageNos=${pageNos-1 }">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=1">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=${pageNos-1 }">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </c:if>
             <c:if test="${pageNos < countPage }">
-                <a href="wordServlet?type=selectAll&&pageNos=${pageNos+1 }">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="wordServlet?type=selectAll&&pageNos=${countPage }">末页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=${pageNos+1 }">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=${countPage }">末页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </c:if>
             共${countPage }页
         </footer>

@@ -131,7 +131,7 @@ public class PlayServlet extends HttpServlet {
                         p.pagination(request);
 
                         //获取总页数
-                        int countPage = wd.selectNum() / 15+1;
+                        int countPage = wd.selectNum() / 15 + 1;
 
                         //传值
                         ScorePassingValues S = new ScorePassingValues();

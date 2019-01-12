@@ -115,7 +115,7 @@ public class UserServlet extends HttpServlet {
                 p.pagination(request);
 
                 //获取总页数
-                int countPage = ud.selectNum() / 15+1;
+                int countPage = ud.selectNum() / 15 + 1;
 
                 //传值
                 ScorePassingValues S = new ScorePassingValues();
@@ -142,7 +142,7 @@ public class UserServlet extends HttpServlet {
                 p.pagination(request);
 
                 //获取总页数
-                int countPage = nd.selectNum(u.getId()) / 15+1;
+                int countPage = nd.selectNum(u.getId()) / 15 + 1;
 
                 request.setAttribute("countPage", countPage);
                 request.setAttribute("listt", listt);

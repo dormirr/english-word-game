@@ -93,7 +93,7 @@
             <h2>计时</h2>
             <p id="timer"></p>
             <p>
-                <a href="wordServlet?type=selectAll"><span>单词库</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }"><span>单词库</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="userServlet?type=rank&&id=${user.id }"><span>积分排名</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="userServlet?type=my&&id=${user.id }"><span>个人数据</span></a>
             </p>
