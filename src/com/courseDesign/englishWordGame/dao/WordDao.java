@@ -1,5 +1,6 @@
 package com.courseDesign.englishWordGame.dao;
 
+import com.courseDesign.englishWordGame.pojo.Notes;
 import com.courseDesign.englishWordGame.pojo.Word;
 import com.courseDesign.englishWordGame.util.DBUtil;
 
@@ -38,7 +39,7 @@ public class WordDao {
         }
     }
 
-    public List<Word> selectOne(){
+    public List<Word> selectOne() {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
@@ -62,7 +63,7 @@ public class WordDao {
         }
     }
 
-    public List<Word> selectThree(){
+    public List<Word> selectThree() {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
@@ -162,7 +163,7 @@ public class WordDao {
                 word = new Word();
                 word.setId(rs.getInt("单词序号"));
                 word.setWord(rs.getString("英文"));
-                word.setChinese(rs.getString("单词"));
+                word.setChinese(rs.getString("中文"));
                 word.setDifficulty(rs.getString("难度"));
             }
             return word;

@@ -64,11 +64,11 @@
 
         <!-- Footer -->
         <footer id="footer">
-            <c:if test="${pageNos>1 }">
+            <c:if test="${pageNos > 1 }">
                 <a href="wordServlet?type=selectAll&&pageNos=1">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="wordServlet?type=selectAll&&pageNos=${pageNos-1 }">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </c:if>
-            <c:if test="${pageNos <countPage }">
+            <c:if test="${pageNos < countPage }">
                 <a href="wordServlet?type=selectAll&&pageNos=${pageNos+1 }">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="wordServlet?type=selectAll&&pageNos=${countPage }">末页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </c:if>

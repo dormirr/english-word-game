@@ -56,7 +56,7 @@ public class NotesDao {
         }
     }
 
-    public boolean updateOne(Notes user,int frequency) {
+    public boolean updateOne(Notes user, int frequency) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
@@ -77,7 +77,7 @@ public class NotesDao {
         }
     }
 
-    public Notes selectUserById(String uid) {
+    public List<Notes> selectUserById(String uid) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
@@ -85,21 +85,22 @@ public class NotesDao {
             PreparedStatement stmt = conn.prepareStatement("select * from 记录 where 用户序号=?");
             stmt.setInt(1, Integer.parseInt(uid));
             ResultSet rs = stmt.executeQuery();
-            Notes user = null;
+            List<Notes> list = new ArrayList<Notes>();
             while (rs.next()) {
-                user = new Notes();
+                Notes user = new Notes();
                 user.setUid(rs.getInt("用户序号"));
                 user.setWid(rs.getInt("单词序号"));
                 user.setFrequency(rs.getInt("次数"));
+                list.add(user);
             }
-            return user;
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public Notes selectNotes(String uid,String wid) {
+    public Notes selectNotes(String uid, String wid) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
@@ -119,6 +120,44 @@ public class NotesDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public List<Notes> selectUserByList(List<Notes> list) {
+        try {
+            //1.得到一个连接
+            Connection conn = DBUtil.getConn();
+
+            for (int i = 0; i < list.size(); i++) {
+                PreparedStatement stmt = conn.prepareStatement("select 英文,中文 from 单词 where 单词序号=?");
+                stmt.setInt(1, list.get(i).getWid());
+                ResultSet rs = stmt.executeQuery();
+                rs.next();
+                list.get(i).setWord(rs.getString("英文"));
+                list.get(i).setChinese(rs.getString("中文"));
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int selectNum(int id) {
+        try {
+            //2.得到一个连接
+            Connection conn = DBUtil.getConn();
+            //3.得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("select count(用户序号=?) from 记录");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();//执行
+            rs.next();
+            int count;
+            count = rs.getInt(1);
+            return count;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }

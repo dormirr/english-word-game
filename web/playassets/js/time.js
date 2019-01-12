@@ -12,5 +12,5 @@ function CountDown() {
     } else {
         window.location.href = 'playServlet?type=judge&&id=' + id + '&&fid=0&&tid=1&&sum=' + sum;
     }
-    timer = setInterval("CountDown()", 1000);
+    timer = setTimeout("CountDown()", 1000);
 }

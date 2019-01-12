@@ -6,6 +6,9 @@ import com.courseDesign.englishWordGame.dao.WordDao;
 import com.courseDesign.englishWordGame.pojo.Notes;
 import com.courseDesign.englishWordGame.pojo.User;
 import com.courseDesign.englishWordGame.pojo.Word;
+import com.courseDesign.englishWordGame.util.Pagination;
+import com.courseDesign.englishWordGame.util.PlayPassingValues;
+import com.courseDesign.englishWordGame.util.ScorePassingValues;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,161 +23,128 @@ import java.util.List;
 @WebServlet(name = "PlayServlet", urlPatterns = {"/playServlet"})
 public class PlayServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //处理编码
         request.setCharacterEncoding("utf-8");
 
+        //获取type
         String type = request.getParameter("type");
+
+        WordDao wd = new WordDao();
+        UserDao ud = new UserDao();
+
+        //获取id
+        String uid = request.getParameter("id");
+
+        //根据id查询用户
+        User u = ud.selectUserById(uid);
+
+        //生成题目
+        List<Word> listtrue = wd.selectOne();
+        List<Word> listflase = wd.selectThree();
+        List<Word> listall = new ArrayList<Word>();
+        listall.addAll(listtrue);
+        listall.addAll(listflase);
+
+        //打乱list
+        Collections.shuffle(listall);
 
         //初始化生成四个单词的数据
         if ("play".equals(type)) {
-            request.setCharacterEncoding("utf-8");
-
-            WordDao ud = new WordDao();
-            UserDao udd = new UserDao();
-
-            String uid = request.getParameter("id");
-            User u = udd.selectUserById(uid);
-
-            //记录错误次数
+            //初始化允许的错误次数
             int sum = 3;
 
-
-            //生成数据
-            List<Word> listtrue = ud.selectOne();
-            List<Word> listflase = ud.selectThree();
-            List<Word> listall = new ArrayList<Word>();
-            listall.addAll(listtrue);
-            listall.addAll(listflase);
-
-            //添加记录
-            NotesDao uddd = new NotesDao();
+            NotesDao nd = new NotesDao();
             Notes n = new Notes();
+
+            //生成一条初始记录
             n.setUid(u.getId());
             n.setWid(listtrue.get(0).getId());
             n.setFrequency(0);
-            boolean result = uddd.insertOne(n);
+
+            //添加记录
+            nd.insertOne(n);
 
             //初始化积分
-            System.out.println(udd.updateDifficulty(u, 0));
+            ud.updateDifficulty(u, 0);
 
-            //打乱list
-            Collections.shuffle(listall);
-
-            //查看数据
-            for (int i = 0; i < listall.size(); i++) {
+            //查看单词数据
+            /*for (int i = 0; i < listall.size(); i++) {
                 System.out.println(listall.get(i));
                 System.out.println(i);
-            }
+            }*/
 
+            //题目生成成功
             if (listtrue != null && listflase != null) {
-                //succ
-                request.setAttribute("difficulty",udd.selectDifficulty(uid));
-                request.setAttribute("listtrue", listtrue);
-                request.setAttribute("listall", listall);
-                request.setAttribute("user", u);
-                request.setAttribute("sum", sum);
-                request.getRequestDispatcher("play-index.jsp").forward(request, response);
+                //传值
+                PlayPassingValues P = new PlayPassingValues();
+                P.playPassingValues(request, response, ud.selectDifficulty(uid), listtrue, listall, u, sum);
             }
             //判断对错
         } else if ("judge".equals(type)) {
-            String uid = request.getParameter("id");
+            //获取用户选择的汉语id，正确答案的id，剩余次数
             int fid = Integer.parseInt(request.getParameter("fid"));
             int tid = Integer.parseInt(request.getParameter("tid"));
             int sum = Integer.parseInt(request.getParameter("sum"));
+
             //选对
             if (fid == tid) {
-                WordDao ud = new WordDao();
-                UserDao udd = new UserDao();
-                NotesDao uddd = new NotesDao();
+                //积分加一，更新数据库
+                ud.updateDifficulty(u, ud.selectDifficulty(uid) + 1);
 
-                User u = udd.selectUserById(uid);
-
-                //生成数据
-                List<Word> listtrue = ud.selectOne();
-                List<Word> listflase = ud.selectThree();
-                List<Word> listall = new ArrayList<Word>();
-                listall.addAll(listtrue);
-                listall.addAll(listflase);
-
-                //积分加一
-                udd.updateDifficulty(u, udd.selectDifficulty(uid) + 1);
-
-                //打乱list
-                Collections.shuffle(listall);
-
+                //题目生成成功
                 if (listtrue != null && listflase != null) {
-                    //succ
-                    request.setAttribute("difficulty",udd.selectDifficulty(uid));
-                    request.setAttribute("listtrue", listtrue);
-                    request.setAttribute("listall", listall);
-                    request.setAttribute("user", u);
-                    request.setAttribute("sum", sum);
-                    request.getRequestDispatcher("play-index.jsp").forward(request, response);
+                    //传值
+                    PlayPassingValues P = new PlayPassingValues();
+                    P.playPassingValues(request, response, ud.selectDifficulty(uid), listtrue, listall, u, sum);
                 }
                 //选错
             } else {
+                //允许的错误次数减1
                 sum--;
+                NotesDao nd = new NotesDao();
 
-                //添加记录
-                WordDao ud = new WordDao();
-                UserDao udd = new UserDao();
-                NotesDao uddd = new NotesDao();
-                Notes n = new Notes();
+                //查询该用户是否有这个单词的游戏记录
+                Notes n = nd.selectNotes(uid, request.getParameter("tid"));
 
-                User u = udd.selectUserById(uid);
-                n = uddd.selectNotes(uid, request.getParameter("tid"));
+                //如果有 错误次数加1
                 if (n != null) {
-                    uddd.updateOne(n, n.getFrequency() + 1);
+                    nd.updateOne(n, n.getFrequency() + 1);
+                    //如果没有 生成一条记录
                 } else {
                     //添加记录
                     Notes nn = new Notes();
                     nn.setUid(u.getId());
                     nn.setWid(tid);
                     nn.setFrequency(1);
-                    uddd.insertOne(nn);
+                    nd.insertOne(nn);
                 }
 
-                //游戏结束
+                //如果允许的错误次数为0 游戏结束
                 if (sum <= 0) {
+                    //生成用户积分排名
+                    List<User> list = ud.rankAll();
 
-                    List<User> list = udd.rankAll();
+                    //积分排名生成成功
                     if (list != null) {
-                        //succ
-
                         //分页
-                        int pageNos;
-                        if (request.getParameter("pageNos") == null || Integer.parseInt(request.getParameter("pageNos")) < 1) {
-                            pageNos = 1;
-                        } else {
-                            pageNos = Integer.parseInt(request.getParameter("pageNos"));
-                        }
-                        request.setAttribute("pageNos", pageNos);
-                        // 定义总页数并存到session中
-                        int countPage = ud.selectNum() / 15;
-                        // 在实际开发中我们的总页数可以根据sql语句得到查询到的总条数，然后用总条数除每页的条数得到总页数
-                        request.setAttribute("countPage", countPage);
-                        request.setAttribute("list", list);
-                        request.setAttribute("user", u);
-                        request.getRequestDispatcher("score-index.jsp").forward(request, response);
+                        Pagination p = new Pagination();
+                        p.pagination(request);
+
+                        //获取总页数
+                        int countPage = wd.selectNum() / 15+1;
+
+                        //传值
+                        ScorePassingValues S = new ScorePassingValues();
+                        S.scorePassingValues(request, response, countPage, list, u);
                     }
-                    //游戏继续
+                    //如果允许的错误次数大于0 游戏继续
                 } else {
-                    List<Word> listtrue = ud.selectOne();
-                    List<Word> listflase = ud.selectThree();
-                    List<Word> listall = new ArrayList<Word>();
-                    listall.addAll(listtrue);
-                    listall.addAll(listflase);
 
-                    //打乱list
-                    Collections.shuffle(listall);
-
+                    //题目生成成功
                     if (listtrue != null && listflase != null) {
-                        //succ
-                        request.setAttribute("difficulty",udd.selectDifficulty(uid));
-                        request.setAttribute("listtrue", listtrue);
-                        request.setAttribute("listall", listall);
-                        request.setAttribute("user", u);
-                        request.setAttribute("sum", sum);
-                        request.getRequestDispatcher("play-index.jsp").forward(request, response);
+                        //传值
+                        PlayPassingValues P = new PlayPassingValues();
+                        P.playPassingValues(request, response, ud.selectDifficulty(uid), listtrue, listall, u, sum);
                     }
                 }
             }

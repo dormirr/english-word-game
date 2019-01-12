@@ -25,10 +25,6 @@
     <nav>
         <ul>
             <li><a href="#intro">欢迎</a></li>
-            <li><a href="#one">What I Do</a></li>
-            <li><a href="#two">Who I Am</a></li>
-            <li><a href="#work">My Work</a></li>
-            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 </header>
@@ -44,6 +40,7 @@
             用户在5秒内选择单词对应的中文词语，提交答案。<br/>
             通过计分、页面的特效等提高趣味性，<br/>
             使学习和记单词成为一种乐趣。</p>
+        <p><strong>点击开始游戏</strong></p>
         <footer>
             <a href="playServlet?type=play&&id=${user.id }" class="button style2 down">More</a>
         </footer>

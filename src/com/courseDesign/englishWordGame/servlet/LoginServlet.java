@@ -12,29 +12,31 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "LoginServlet",urlPatterns = {"/loginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/loginServlet"})
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //post方式解决中文乱码问题：告诉servlet要用UTF-8的码表来解码
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        //1.接受浏览器表单提交的数据
+        //接受浏览器表单提交的数据
         String name = request.getParameter("name");
         String pwd = request.getParameter("pwd");
-        System.out.println(name);
-        System.out.println(pwd);
 
-        //2.逻辑处理：连接数据库，进行比对，然后得到结果
+        //检测获取是否成功
+        //System.out.println(name);
+        //System.out.println(pwd);
+
+        //逻辑处理：连接数据库，进行比对，然后得到结果
         boolean result = false;
 
-        //3.1逻辑判断
+        //查询用户
         UserDao ud = new UserDao();
         User user = ud.selectOne(name);
 
-        //3.2逻辑判断
-        List<User> list = ud.rankAll();
+        //查到了
         if (user != null) {
+            //密码正确
             if (pwd.equals(user.getPwd())) {
                 //succ
 
@@ -43,13 +45,14 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("users", name);
 
                 request.setAttribute("user", user);
-                request.setAttribute("list", list);
                 request.getRequestDispatcher("play-welcome.jsp").forward(request, response);
+                //密码错误
             } else {
                 //密码不对
                 request.setAttribute("error", "密码不正确");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
+            //没查到
         } else {
             //用户名不正确
             request.setAttribute("error", "用户名不正确");

@@ -32,11 +32,9 @@
                     <a href="#menu" class="menuToggle"><span>菜单</span></a>
                     <div id="menu">
                         <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="generic.html">Generic</a></li>
-                            <li><a href="elements.html">Elements</a></li>
-                            <li><a href="#">Sign Up</a></li>
-                            <li><a href="#">Log In</a></li>
+                            <li><a href="#banner">首页</a></li>
+                            <li><a href="#one">游戏介绍</a></li>
+                            <li><a href="#three">登录</a></li>
                         </ul>
                     </div>
                 </li>
@@ -50,10 +48,10 @@
             <h2>英语单词游戏</h2>
             <p>由张天赐、贺璐、高天、张浩钰制作<br/>
             <ul class="actions special">
-                <li><a href="#" class="button primary">Activate</a></li>
+                <li><a href="#three" class="button primary">登录</a></li>
             </ul>
         </div>
-        <a href="#one" class="more scrolly">Learn More</a>
+        <a href="#one" class="more scrolly">下拉显示更多</a>
     </section>
 
     <!-- One -->

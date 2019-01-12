@@ -253,11 +253,9 @@ public class UserDao {
             ResultSet rs = stmt.executeQuery();//执行
             int count;
             //bean对象封装
-            while (rs.next()) {
-                count = rs.getInt(1);
-                return count;
-            }
-            return 0;
+            rs.next();
+            count = rs.getInt(1);
+            return count;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

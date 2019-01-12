@@ -4,6 +4,35 @@ public class Notes {
     int uid;
     int wid;
     int frequency;
+    String word;
+    String chinese;
+
+    @Override
+    public String toString() {
+        return "Notes{" +
+                "uid=" + uid +
+                ", wid=" + wid +
+                ", frequency=" + frequency +
+                ", word='" + word + '\'' +
+                ", chinese='" + chinese + '\'' +
+                '}';
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getChinese() {
+        return chinese;
+    }
+
+    public void setChinese(String chinese) {
+        this.chinese = chinese;
+    }
 
     public int getUid() {
         return uid;
@@ -29,12 +58,4 @@ public class Notes {
         this.frequency = frequency;
     }
 
-    @Override
-    public String toString() {
-        return "Notes{" +
-                "uid=" + uid +
-                ", wid=" + wid +
-                ", frequency=" + frequency +
-                '}';
-    }
 }
