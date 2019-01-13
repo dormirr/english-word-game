@@ -58,27 +58,34 @@
         <!-- Gallery  -->
         <form>
             <div class="gallery">
+                <br/>
                 <article class="from-left">
                     <button type="submit"
+                            style="font-size: 1em"
                             formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(0).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(0).getChinese() }<p/></button>
                 </article>
                 <article class="from-right">
                     <button type="submit"
+                            style="font-size: 1em"
                             formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(1).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(1).getChinese() }<p/></button>
                 </article>
                 <br/>
+                <br/>
+                <br/>
                 <article class="from-left">
                     <button type="submit"
+                            style="font-size: 1em"
                             formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(2).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(2).getChinese() }<p/></button>
                 </article>
                 <article class="from-right">
                     <button type="submit"
+                            style="font-size: 1em"
                             formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(3).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(3).getChinese() }<p/></button>
@@ -92,12 +99,10 @@
 <section id="contact" class="main style3 secondary">
     <div class="content">
         <header>
-            <h2>计时</h2>
+            <h2>剩余时间</h2>
             <p id="timer"></p>
-            <p>英语单词游戏是一个单词统计的练习游戏。英文单词随机显示，<br/>
-                用户在5秒内选择单词对应的中文词语，提交答案。<br/>
-                通过计分、页面的特效等提高趣味性，<br/>
-                使学习和记单词成为一种乐趣。</p>
+            <br/>
+            <br/>
         </header>
     </div>
 </section>
