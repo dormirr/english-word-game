@@ -32,6 +32,7 @@ public class WordDao {
                 word.setDifficulty(rs.getString("难度"));
                 list.add(word);
             }
+            conn.close();
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,6 +74,7 @@ public class WordDao {
                     list.add(word);
                 }
             }
+            conn.close();
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +100,7 @@ public class WordDao {
                 word.setDifficulty(rs.getString("难度"));
                 list.add(word);
             }
+            conn.close();
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,7 +118,7 @@ public class WordDao {
             stmt.setString(2, word.getChinese());
             stmt.setString(3, word.getDifficulty());
             int result = stmt.executeUpdate();
-
+            conn.close();
             if (result != -1) {
                 return true;
             } else {
@@ -135,7 +138,7 @@ public class WordDao {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM 单词 WHERE 单词序号 = ?");
             stmt.setInt(1, Integer.parseInt(id));
             int result = stmt.executeUpdate();
-
+            conn.close();
             if (result > 0) {
                 return true;
             } else {
@@ -159,6 +162,7 @@ public class WordDao {
             stmt.setString(3, word.getDifficulty());
             stmt.setInt(4, word.getId());
             int result = stmt.executeUpdate();
+            conn.close();
             if (result > 0) {
                 return true;
             } else {
@@ -187,6 +191,7 @@ public class WordDao {
                 word.setChinese(rs.getString("中文"));
                 word.setDifficulty(rs.getString("难度"));
             }
+            conn.close();
             return word;
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,6 +218,7 @@ public class WordDao {
                 word.setDifficulty(rs.getString("难度"));
                 list.add(word);
             }
+            conn.close();
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,11 +235,10 @@ public class WordDao {
             ResultSet rs = stmt.executeQuery();//执行
             int count;
             //bean对象封装
-            while (rs.next()) {
-                count = rs.getInt(1);
-                return count;
-            }
-            return 0;
+            rs.next();
+            count = rs.getInt(1);
+            conn.close();
+            return count;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

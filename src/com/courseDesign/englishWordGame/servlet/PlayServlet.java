@@ -111,7 +111,7 @@ public class PlayServlet extends HttpServlet {
 
                 //如果有 错误次数加1
                 if (n != null) {
-                    nd.updateOne(n, n.getFrequency() + 1);
+                    nd.updateOne(n, (n.getFrequency() + 1));
                     //如果没有 生成一条记录
                 } else {
                     //添加记录
