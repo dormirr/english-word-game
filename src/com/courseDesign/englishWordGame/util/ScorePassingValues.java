@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class ScorePassingValues {
-    public void scorePassingValues(HttpServletRequest request, HttpServletResponse response, int countPage, List<User> list, User u) throws ServletException, IOException {
+    public void scorePassingValues(HttpServletRequest request, HttpServletResponse response, int countPage, List<User> list, User u, String Difficulty) throws ServletException, IOException {
         request.setAttribute("countPage", countPage);
         request.setAttribute("list", list);
         request.setAttribute("user", u);
+        request.setAttribute("Difficulty", Difficulty);
         request.getRequestDispatcher("score-index.jsp").forward(request, response);
     }
 }

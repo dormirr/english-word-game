@@ -98,6 +98,8 @@ public class UserServlet extends HttpServlet {
             //展示排名
         } else if ("rank".equals(type)) {
             UserDao ud = new UserDao();
+            //获取难度
+            String difficulty = request.getParameter("Difficulty");
 
             //获取id
             String uid = request.getParameter("id");
@@ -106,7 +108,7 @@ public class UserServlet extends HttpServlet {
             User u = ud.selectUserById(uid);
 
             //获取用户数据
-            List<User> list = ud.rankAll();
+            List<User> list = ud.rankAll(difficulty);
 
             //如果数据库中有数据
             if (list != null) {
@@ -119,7 +121,7 @@ public class UserServlet extends HttpServlet {
 
                 //传值
                 ScorePassingValues S = new ScorePassingValues();
-                S.scorePassingValues(request, response, countPage, list, u);
+                S.scorePassingValues(request, response, countPage, list, u, difficulty);
             }
             //展示个人游戏记录
         } else if ("my".equals(type)) {

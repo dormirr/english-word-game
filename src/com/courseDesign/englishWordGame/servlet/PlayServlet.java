@@ -29,6 +29,9 @@ public class PlayServlet extends HttpServlet {
         //获取type
         String type = request.getParameter("type");
 
+        //获取难度
+        String Difficulty = request.getParameter("Difficulty");
+
         WordDao wd = new WordDao();
         UserDao ud = new UserDao();
 
@@ -39,7 +42,7 @@ public class PlayServlet extends HttpServlet {
         User u = ud.selectUserById(uid);
 
         //生成题目
-        List<Word> listtrue = wd.selectOne();
+        List<Word> listtrue = wd.selectOne(Difficulty);
         List<Word> listflase = wd.selectThree();
         List<Word> listall = new ArrayList<Word>();
         listall.addAll(listtrue);
@@ -65,7 +68,7 @@ public class PlayServlet extends HttpServlet {
             nd.insertOne(n);
 
             //初始化积分
-            ud.updateDifficulty(u, 0);
+            ud.updateDifficulty(u, 0, Difficulty);
 
             //查看单词数据
             /*for (int i = 0; i < listall.size(); i++) {
@@ -77,7 +80,7 @@ public class PlayServlet extends HttpServlet {
             if (listtrue != null && listflase != null) {
                 //传值
                 PlayPassingValues P = new PlayPassingValues();
-                P.playPassingValues(request, response, ud.selectDifficulty(uid), listtrue, listall, u, sum);
+                P.playPassingValues(request, response, ud.selectDifficulty(uid, Difficulty), listtrue, listall, u, sum, Difficulty);
             }
             //判断对错
         } else if ("judge".equals(type)) {
@@ -89,13 +92,13 @@ public class PlayServlet extends HttpServlet {
             //选对
             if (fid == tid) {
                 //积分加一，更新数据库
-                ud.updateDifficulty(u, ud.selectDifficulty(uid) + 1);
+                ud.updateDifficulty(u, ud.selectDifficulty(uid, Difficulty) + 1, Difficulty);
 
                 //题目生成成功
                 if (listtrue != null && listflase != null) {
                     //传值
                     PlayPassingValues P = new PlayPassingValues();
-                    P.playPassingValues(request, response, ud.selectDifficulty(uid), listtrue, listall, u, sum);
+                    P.playPassingValues(request, response, ud.selectDifficulty(uid, Difficulty), listtrue, listall, u, sum, Difficulty);
                 }
                 //选错
             } else {
@@ -122,7 +125,7 @@ public class PlayServlet extends HttpServlet {
                 //如果允许的错误次数为0 游戏结束
                 if (sum <= 0) {
                     //生成用户积分排名
-                    List<User> list = ud.rankAll();
+                    List<User> list = ud.rankAll(Difficulty);
 
                     //积分排名生成成功
                     if (list != null) {
@@ -135,19 +138,22 @@ public class PlayServlet extends HttpServlet {
 
                         //传值
                         ScorePassingValues S = new ScorePassingValues();
-                        S.scorePassingValues(request, response, countPage, list, u);
+                        S.scorePassingValues(request, response, countPage, list, u, Difficulty);
                     }
                     //如果允许的错误次数大于0 游戏继续
                 } else {
-
                     //题目生成成功
                     if (listtrue != null && listflase != null) {
                         //传值
                         PlayPassingValues P = new PlayPassingValues();
-                        P.playPassingValues(request, response, ud.selectDifficulty(uid), listtrue, listall, u, sum);
+                        P.playPassingValues(request, response, ud.selectDifficulty(uid, Difficulty), listtrue, listall, u, sum, Difficulty);
                     }
                 }
             }
+            //再来一局
+        } else if ("oneMoreGame".equals(type)) {
+            request.setAttribute("user", u);
+            request.getRequestDispatcher("play-welcome.jsp").forward(request, response);
         }
     }
 
