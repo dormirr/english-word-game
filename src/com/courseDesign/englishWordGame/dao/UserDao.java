@@ -38,12 +38,13 @@ public class UserDao {
         }
     }
 
-    public List<User> rankAll() {
+    public List<User> rankAll(String difficulty) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("SELECT(@rank := @rank+1) AS 累计积分排名,a.* FROM(SELECT * FROM 用户)a,(SELECT @rank :=0)b ORDER BY a.累计积分 DESC");
+            String sql = "SELECT(@rank := @rank+1) AS 累计积分排名,a.* FROM(SELECT * FROM 用户)a,(SELECT @rank :=0)b ORDER BY a." + difficulty + " DESC";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();//执行
             List<User> list = new ArrayList<User>();
             //3.bean对象封装
@@ -52,7 +53,10 @@ public class UserDao {
                 user.setId(rs.getInt("用户序号"));
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
-                user.setGrandTotalScore(rs.getInt("累计积分"));
+                user.setSimpleScore(rs.getInt("简单"));
+                user.setMediumScore(rs.getInt("中等"));
+                user.setHardScore(rs.getInt("困难"));
+                user.setRandom(rs.getInt("随机"));
                 user.setRanking(rs.getInt("累计积分排名"));
                 list.add(user);
             }
@@ -77,7 +81,10 @@ public class UserDao {
                 user.setId(rs.getInt("用户序号"));
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
-                user.setGrandTotalScore(rs.getInt("累计积分"));
+                user.setSimpleScore(rs.getInt("简单"));
+                user.setMediumScore(rs.getInt("中等"));
+                user.setHardScore(rs.getInt("困难"));
+                user.setRandom(rs.getInt("随机"));
                 list.add(user);
             }
             return list;
@@ -128,12 +135,13 @@ public class UserDao {
         }
     }
 
-    public boolean updateDifficulty(User user, int difficulty) {
+    public boolean updateDifficulty(User user, int difficulty, String Difficulty) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("UPDATE 用户 SET 累计积分=? where 用户序号=?");
+            String sql = "UPDATE 用户 SET " + Difficulty + "=? where 用户序号=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, difficulty);
             stmt.setInt(2, user.getId());
             int result = stmt.executeUpdate();
@@ -163,7 +171,10 @@ public class UserDao {
                 user.setId(rs.getInt("用户序号"));
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
-                user.setGrandTotalScore(rs.getInt("累计积分"));
+                user.setSimpleScore(rs.getInt("简单"));
+                user.setMediumScore(rs.getInt("中等"));
+                user.setHardScore(rs.getInt("困难"));
+                user.setRandom(rs.getInt("随机"));
             }
             return user;
         } catch (Exception e) {
@@ -172,16 +183,17 @@ public class UserDao {
         }
     }
 
-    public int selectDifficulty(String uid) {
+    public int selectDifficulty(String uid, String difficulty) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("select 累计积分 from 用户 where 用户序号=?");
+            String sql = "select " + difficulty + " from 用户 where 用户序号=?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, Integer.parseInt(uid));
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            return rs.getInt("累计积分");
+            return rs.getInt(1);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

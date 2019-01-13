@@ -1,12 +1,12 @@
 package com.courseDesign.englishWordGame.dao;
 
-import com.courseDesign.englishWordGame.pojo.Notes;
 import com.courseDesign.englishWordGame.pojo.Word;
 import com.courseDesign.englishWordGame.util.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,22 +39,39 @@ public class WordDao {
         }
     }
 
-    public List<Word> selectOne() {
+    public List<Word> selectOne(String difficulty) {
         try {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
+
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM 单词 ORDER BY rand() LIMIT 1;");
-            ResultSet rs = stmt.executeQuery();//执行
             List<Word> list = new ArrayList<Word>();
-            //3.bean对象封装
-            while (rs.next()) {
-                Word word = new Word();
-                word.setId(rs.getInt("单词序号"));
-                word.setWord(rs.getString("英文"));
-                word.setChinese(rs.getString("中文"));
-                word.setDifficulty(rs.getString("难度"));
-                list.add(word);
+            System.out.println(difficulty);
+            if ("随机".equals(difficulty)) {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM 单词 ORDER BY rand() LIMIT 1;");
+                ResultSet rs = stmt.executeQuery();//执行
+                //3.bean对象封装
+                while (rs.next()) {
+                    Word word = new Word();
+                    word.setId(rs.getInt("单词序号"));
+                    word.setWord(rs.getString("英文"));
+                    word.setChinese(rs.getString("中文"));
+                    word.setDifficulty(rs.getString("难度"));
+                    list.add(word);
+                }
+            } else {
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM 单词 where 难度=? ORDER BY rand() LIMIT 1;");
+                stmt.setString(1, difficulty);
+                ResultSet rs = stmt.executeQuery();//执行
+                //3.bean对象封装
+                while (rs.next()) {
+                    Word word = new Word();
+                    word.setId(rs.getInt("单词序号"));
+                    word.setWord(rs.getString("英文"));
+                    word.setChinese(rs.getString("中文"));
+                    word.setDifficulty(rs.getString("难度"));
+                    list.add(word);
+                }
             }
             return list;
         } catch (Exception e) {
@@ -62,6 +79,7 @@ public class WordDao {
             return null;
         }
     }
+
 
     public List<Word> selectThree() {
         try {
@@ -129,14 +147,17 @@ public class WordDao {
         }
     }
 
-    /*public boolean updateOne(User user) {
+    public boolean updateOne(Word word) {
         try {
-            //1.得到一个连接
+            //得到一个连接
             Connection conn = DBUtil.getConn();
-            //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("UPDATE 用户 SET 密码=?where 用户序号=?");
-            stmt.setString(1, user.getPwd());
-            stmt.setInt(2, user.getId());
+
+            //得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("UPDATE 单词 SET 中文=?,英文=?,难度=? where 单词序号=?");
+            stmt.setString(1, word.getChinese());
+            stmt.setString(2, word.getWord());
+            stmt.setString(3, word.getDifficulty());
+            stmt.setInt(4, word.getId());
             int result = stmt.executeUpdate();
             if (result > 0) {
                 return true;
@@ -147,7 +168,7 @@ public class WordDao {
             e.printStackTrace();
             return false;
         }
-    }*/
+    }
 
 
     public Word selectUserById(String uid) {

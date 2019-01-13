@@ -4,7 +4,10 @@ public class User {
     private int id;
     private String name;
     private String pwd;
-    private int grandTotalScore;
+    private int simpleScore;
+    private int mediumScore;
+    private int hardScore;
+    private int random;
     private int ranking;
 
     public int getId() {
@@ -31,12 +34,36 @@ public class User {
         this.pwd = pwd;
     }
 
-    public int getGrandTotalScore() {
-        return grandTotalScore;
+    public int getSimpleScore() {
+        return simpleScore;
     }
 
-    public void setGrandTotalScore(int grandTotalScore) {
-        this.grandTotalScore = grandTotalScore;
+    public void setSimpleScore(int simpleScore) {
+        this.simpleScore = simpleScore;
+    }
+
+    public int getMediumScore() {
+        return mediumScore;
+    }
+
+    public void setMediumScore(int mediumScore) {
+        this.mediumScore = mediumScore;
+    }
+
+    public int getHardScore() {
+        return hardScore;
+    }
+
+    public void setHardScore(int hardScore) {
+        this.hardScore = hardScore;
+    }
+
+    public int getRandom() {
+        return random;
+    }
+
+    public void setRandom(int random) {
+        this.random = random;
     }
 
     public int getRanking() {
@@ -53,7 +80,10 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", pwd='" + pwd + '\'' +
-                ", grandTotalScore=" + grandTotalScore +
+                ", simpleScore=" + simpleScore +
+                ", mediumScore=" + mediumScore +
+                ", hardScore=" + hardScore +
+                ", random=" + random +
                 ", ranking=" + ranking +
                 '}';
     }
