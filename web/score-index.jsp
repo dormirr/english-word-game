@@ -5,13 +5,6 @@
   Time: 上午9:39
   To change this template use File | Settings | File Templates.
 --%>
-<%--
-  Created by IntelliJ IDEA.
-  User: dormirr
-  Date: 19-1-8
-  Time: 下午2:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -36,23 +29,37 @@
         <!-- Header -->
         <header id="header">
             <h1>游戏积分排名</h1>
-            <p>欢迎您 &nbsp;&bull;&nbsp; ${user.name }</p>
-            <p><a href="userServlet?type=selectById&&id=${user.id }"><span class="label">修改密码</span></a></p>
+            <p>欢迎您 &nbsp;&bull;&nbsp; ${user.name }&nbsp;本次难度为${Difficulty }</p>
+            <p>
+                <a href="playServlet?type=oneMoreGame&&id=${user.id }">再来一局</a>&emsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }">查看单词库</a>&emsp;
+                <a href="userServlet?type=my&&id=${user.id }">查看个人游戏记录</a>
+            </p>
+            <p><a href=" userServlet?type=selectById&&id=${user.id }"><span class="label">修改密码</span></a></p>
             <table width="100%">
                 <thead>
                 <tr align="center">
-                    <th>序号</th>
-                    <th>账号</th>
-                    <th>累计积分</th>
-                    <th>累计积分排名</th>
+                    <th>用户账号</th>
+                    <th>游戏积分</th>
+                    <th>积分排名</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${list }" var="item">
                     <tr align="center">
-                        <td>${item.id }</td>
                         <td>${item.name }</td>
-                        <td>${item.grandTotalScore }</td>
+                        <c:if test="${Difficulty == '简单'}">
+                            <td>${item.simpleScore }</td>
+                        </c:if>
+                        <c:if test="${Difficulty == '中等'}">
+                            <td>${item.mediumScore }</td>
+                        </c:if>
+                        <c:if test="${Difficulty == '困难'}">
+                            <td>${item.hardScore }</td>
+                        </c:if>
+                        <c:if test="${Difficulty == '随机'}">
+                            <td>${item.random }</td>
+                        </c:if>
                         <td>${item.ranking }</td>
                     </tr>
                 </c:forEach>

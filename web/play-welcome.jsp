@@ -24,7 +24,8 @@
     <h1>欢迎${user.name }登录</h1>
     <nav>
         <ul>
-            <li><a href="#intro">欢迎</a></li>
+            <li><a href="userServlet?type=my&&id=${user.id }">游戏记录</a></li>
+            <li><a href="wordServlet?type=selectAll&&id=${user.id }">单词库</a></li>
         </ul>
     </nav>
 </header>
@@ -40,9 +41,13 @@
             用户在5秒内选择单词对应的中文词语，提交答案。<br/>
             通过计分、页面的特效等提高趣味性，<br/>
             使学习和记单词成为一种乐趣。</p>
-        <p><strong>点击开始游戏</strong></p>
+        <p><strong>点击对应的难度开始游戏</strong></p>
         <footer>
-            <a href="playServlet?type=play&&id=${user.id }" class="button style2 down">More</a>
+            <p><strong>简单&emsp;&emsp;&emsp;中等&emsp;&emsp;&emsp;困难&emsp;&emsp;&emsp;随机</strong></p>
+            <a href="playServlet?type=play&&id=${user.id }&&Difficulty=简单" class="button style2 down">简单</a>
+            <a href="playServlet?type=play&&id=${user.id }&&Difficulty=中等" class="button style2 down">中等</a>
+            <a href="playServlet?type=play&&id=${user.id }&&Difficulty=困难" class="button style2 down">困难</a>
+            <a href="playServlet?type=play&&id=${user.id }&&Difficulty=随机" class="button style2 down">随机</a>
         </footer>
     </div>
 </section>

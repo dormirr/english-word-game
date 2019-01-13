@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="rememberUser.jsp" %>
 <html>
 
 <head>
@@ -97,8 +98,7 @@
         <div class="inner">
             <header class="major">
                 <h2>登录账号</h2>
-                <p>登录账号即可开始享受以下服务<br/>
-                    欢迎您</p>
+                <p>登录账号即可开始享受以下服务</p>
             </header>
             <ul class="features">
                 <li class="icon fa-paper-plane-o">
@@ -128,13 +128,13 @@
             </ul>
             <div class="inner">
                 <form action="loginServlet" method="post">
-                    <input name="name" type="text" placeholder="请输入账号">
+                    <input name="name" type="text" placeholder="请输入账号" value="<%=name %>">
                     <br/>
-                    <input name="pwd" type="password" placeholder="请输入密码">
+                    <input name="pwd" type="password" placeholder="请输入密码" value="<%=pwd %>">
                     <br/>
-                    <input id="remember-me" type="checkbox" name="rememberAccountName">
+                    <input id="remember-me" type="checkbox" name="rememberUser" checked="checked">
                     <label for="remember-me">
-                        记住账号
+                        记住密码
                     </label>
                     <ul class="actions stacked">
                         <li>

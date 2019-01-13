@@ -29,7 +29,7 @@
         <div class="inner">
             <header class="major">
                 <h2>修改密码</h2>
-                <p>修改密码以找回您的原账号</p>
+                <p>欢迎您&bull;${user.name }&emsp;<a href="#" onclick="history.go(-1)">后退</a></p>
             </header>
             <div class="inner">
                 <form action="userServlet?type=update" method="post">

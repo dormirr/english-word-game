@@ -17,16 +17,16 @@
         <link rel="stylesheet" href="playassets/css/noscript.css"/>
     </noscript>
 </head>
-<body class="is-preload">
+<body class="is-preload" style="overflow:hidden"><!--去除滚动条-->
 
 <!-- Header -->
 <header id="header">
     <h1>欢迎${user.name }登录</h1>
     <nav>
         <ul>
-            <li><a href="#intro">欢迎</a></li>
-            <li><a href="#work">游戏</a></li>
-            <li><a href="#contact">其他</a></li>
+            <li><a href="userServlet?type=my&&id=${user.id }">游戏记录</a></li>
+            <li><a href="userServlet?type=rank&&id=${user.id }&&Difficulty=${Difficulty }">积分排名</a></li>
+            <li><a href="wordServlet?type=selectAll&&id=${user.id }">单词库</a></li>
         </ul>
     </nav>
 </header>
@@ -40,8 +40,9 @@
         <p><strong>你还有${sum }次机会</strong></p>
         <input type="hidden" id="id" value="${user.id }">
         <input type="hidden" id="sum" value="${sum }">
+        <input type="hidden" id="Difficulty" value="${Difficulty }">
         <footer>
-            <a href="#work" class="button style2 down" onclick="CountDown()"></a>
+            <a href="#work" class="button style2 down" onclick="CountDown();cancelDisMouseWheel()"></a>
         </footer>
     </div>
 </section>
@@ -59,25 +60,26 @@
             <div class="gallery">
                 <article class="from-left">
                     <button type="submit"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(0).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(0).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(0).getChinese() }<p/></button>
                 </article>
                 <article class="from-right">
                     <button type="submit"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(1).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(1).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(1).getChinese() }<p/></button>
                 </article>
+                <br/>
                 <article class="from-left">
                     <button type="submit"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(2).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(2).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(2).getChinese() }<p/></button>
                 </article>
                 <article class="from-right">
                     <button type="submit"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(3).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(3).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
                             formmethod="post">
                         <p>${listall.get(3).getChinese() }<p/></button>
                 </article>
@@ -92,11 +94,10 @@
         <header>
             <h2>计时</h2>
             <p id="timer"></p>
-            <p>
-                <a href="wordServlet?type=selectAll&&id=${user.id }"><span>单词库</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="userServlet?type=rank&&id=${user.id }"><span>积分排名</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="userServlet?type=my&&id=${user.id }"><span>个人数据</span></a>
-            </p>
+            <p>英语单词游戏是一个单词统计的练习游戏。英文单词随机显示，<br/>
+                用户在5秒内选择单词对应的中文词语，提交答案。<br/>
+                通过计分、页面的特效等提高趣味性，<br/>
+                使学习和记单词成为一种乐趣。</p>
         </header>
     </div>
 </section>
@@ -113,6 +114,7 @@
 <script src="playassets/js/util.js"></script>
 <script src="playassets/js/main.js"></script>
 <script src="playassets/js/time.js"></script>
+<script src="playassets/js/wheel.js"></script>
 
 </body>
 </html>

@@ -3,6 +3,7 @@
 var maxtime = 5;
 var sum = document.getElementById('sum').value;
 var id = document.getElementById('id').value;
+var Difficulty = document.getElementById('Difficulty').value;
 
 function CountDown() {
     if (maxtime >= 0) {
@@ -10,7 +11,7 @@ function CountDown() {
         document.all["timer"].innerHTML = msg;
         --maxtime;
     } else {
-        window.location.href = 'playServlet?type=judge&&id=' + id + '&&fid=0&&tid=1&&sum=' + sum;
+        window.location.href = 'playServlet?type=judge&&id=' + id + '&&fid=0&&tid=1&&sum=' + sum + '&&Difficulty=' + Difficulty;
     }
     timer = setTimeout("CountDown()", 1000);
 }

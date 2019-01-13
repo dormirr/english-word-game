@@ -30,32 +30,37 @@
         <header id="header">
             <h1>单词库</h1>
             <p>欢迎您&bull;${user.name }</p>
-            <a href="add-words.jsp"><span class="label">增加单词</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <form action="wordServlet?type=like" method="post">
-                <input name="str" type="text" placeholder="请输入要搜索的内容"
-                       style="background:transparent;border:1px solid #ffffff">
-                <button type="submit" style="background:transparent;border:0px solid #ffffff;color:#ffffff">
-                    <span>搜索</span>
+            <p><a href="userServlet?type=my&&id=${user.id }">查看个人游戏记录</a></p>
+            <p><a href="wordServlet?type=add&&id=${user.id }">增加单词</a></p>
+            <form action="wordServlet?type=like&&id=${user.id }" method="post">
+                <button type="submit"
+                        style="background:transparent;border:0px solid #ffffff;color:#ffffff;font-size: 1em">
+                    <p>搜索单词</p>
                 </button>
+                <input name="str" type="text" placeholder="请输入要搜索单词的中英文"
+                       style="background:transparent;border:1px solid #ffffff"><br/><br/>
             </form>
 
             <table width="100%">
                 <thead>
                 <tr align="center">
-                    <th>单词序号</th>
                     <th>单词英文</th>
                     <th>单词中文</th>
-                    <th>难度</th>
-                    <th>编辑</th>
+                    <th>单词难度</th>
+                    <th>修改单词</th>
+                    <th>删除单词</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${list }" var="item" begin="${(pageNos-1)*15 }" end="${pageNos*15-1}">
                     <tr align="center">
-                        <td>${item.id }</td>
                         <td>${item.word }</td>
                         <td>${item.chinese }</td>
                         <td>${item.difficulty }</td>
+                        <td>
+                            <a href="wordServlet?type=selectById&&id=${item.id }">修改
+                            </a>
+                        </td>
                         <td>
                             <a href="javascript:if(confirm('确实要删除该内容吗?')){location='wordServlet?type=delete&&id=${item.id }'}">删除
                             </a>

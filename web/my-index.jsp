@@ -30,11 +30,13 @@
         <header id="header">
             <h1>个人游戏记录</h1>
             <p>欢迎您&bull;${user.name }</p>
-
+            <p>
+                <a href="playServlet?type=oneMoreGame&&id=${user.id }">再来一局</a>&emsp;
+                <a href="wordServlet?type=selectAll&&id=${user.id }">查看单词库</a>
+            </p>
             <table width="100%">
                 <thead>
                 <tr align="center">
-                    <th>单词序号</th>
                     <th>单词英文</th>
                     <th>单词中文</th>
                     <th>错误次数</th>
@@ -44,7 +46,6 @@
 
                 <c:forEach items="${listt }" var="item" begin="${(pageNos-1)*15 }" end="${pageNos*15-1}">
                     <tr align="center">
-                        <td>${item.wid }</td>
                         <td>${item.word }</td>
                         <td>${item.chinese }</td>
                         <td>${item.frequency }</td>
