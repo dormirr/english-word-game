@@ -5,12 +5,8 @@ import com.courseDesign.englishWordGame.pojo.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/loginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -22,6 +18,7 @@ public class LoginServlet extends HttpServlet {
         //接受浏览器表单提交的数据
         String name = request.getParameter("name");
         String pwd = request.getParameter("pwd");
+        String rememberUser = request.getParameter("rememberUser");
 
         //检测获取是否成功
         //System.out.println(name);
@@ -38,30 +35,67 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             //密码正确
             if (pwd.equals(user.getPwd())) {
-                //succ
+                //Cookie记住用户
+                if ("on".equals(rememberUser)) {
+                    //构造Cookie对象
+                    //添加到Cookie中
+                    Cookie nameCookie = new Cookie("name", name);
+                    Cookie pwdCookie = new Cookie("pwd", pwd);
+
+                    //设置过期时间（5分钟）
+                    nameCookie.setMaxAge(60 * 5);
+                    pwdCookie.setMaxAge(60 * 5);
+
+                    //存储
+                    response.addCookie(nameCookie);
+                    response.addCookie(pwdCookie);
+                } else {
+                    //清除Cookie
+                    Cookie[] cookies = request.getCookies();
+                    if (cookies != null && cookies.length > 0) {
+                        //遍历Cookie
+                        for (int i = 0; i < cookies.length; i++) {
+                            Cookie cookie = cookies[i];
+                            if ("name".equals(cookie.getName())) {
+                                //删除
+                                cookie.setMaxAge(0);
+                                //存储
+                                response.addCookie(cookie);
+                            } else if ("pwd".equals(cookie.getName())) {
+                                //删除
+                                cookie.setMaxAge(0);
+                                //存储
+                                response.addCookie(cookie);
+                            }
+                        }
+                    }
+                }
 
                 //拦截器 存储在Session中
                 HttpSession session = request.getSession();
                 session.setAttribute("users", name);
-
                 request.setAttribute("user", user);
                 request.getRequestDispatcher("play-welcome.jsp").forward(request, response);
-                //密码错误
-            } else {
+            }
+            //密码错误
+            else {
                 //密码不对
                 request.setAttribute("error", "密码不正确");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-            //没查到
-        } else {
+        }
+        //没查到
+        else {
             //用户名不正确
             request.setAttribute("error", "用户名不正确");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+
     }
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException {
         doPost(request, response);
     }
 }
