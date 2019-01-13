@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-01-12 17:15:52
+Date: 2019-01-13 18:30:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,12 +25,12 @@ CREATE TABLE `单词` (
   `中文` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `难度` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`单词序号`)
-) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of 单词
 -- ----------------------------
-INSERT INTO `单词` VALUES ('1', 'ok', '好', '简单');
+INSERT INTO `单词` VALUES ('1', 'ok', '好的', '简单');
 INSERT INTO `单词` VALUES ('2', 'ruler', '尺子', '简单');
 INSERT INTO `单词` VALUES ('3', 'book', '书', '简单');
 INSERT INTO `单词` VALUES ('4', 'school', '学校', '简单');
@@ -173,6 +173,7 @@ INSERT INTO `单词` VALUES ('140', 'rabble', '乌合之众', '困难');
 INSERT INTO `单词` VALUES ('141', 'ramble', '漫步；闲逛', '困难');
 INSERT INTO `单词` VALUES ('142', 'safeguard', '护照', '困难');
 INSERT INTO `单词` VALUES ('143', 'secretion', '分泌', '困难');
+INSERT INTO `单词` VALUES ('144', 'six', '六', '简单');
 
 -- ----------------------------
 -- Table structure for 用户
@@ -182,16 +183,20 @@ CREATE TABLE `用户` (
   `用户序号` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `账号` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `密码` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `累计积分` int(8) unsigned DEFAULT '0',
+  `简单` int(8) unsigned DEFAULT '0',
+  `中等` int(8) unsigned DEFAULT '0',
+  `困难` int(8) unsigned DEFAULT '0',
+  `随机` int(8) unsigned DEFAULT '0',
   PRIMARY KEY (`用户序号`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of 用户
 -- ----------------------------
-INSERT INTO `用户` VALUES ('1', '管理员', '123', '0');
-INSERT INTO `用户` VALUES ('2', '张天赐', '123', '0');
-INSERT INTO `用户` VALUES ('3', '测试', '123', '0');
+INSERT INTO `用户` VALUES ('1', '管理员', '123', '99999999', '99999999', '99999999', '99999999');
+INSERT INTO `用户` VALUES ('2', '张天赐', '123', '0', '0', '0', '0');
+INSERT INTO `用户` VALUES ('3', '测试', '123', '1', '1', '1', '1');
+INSERT INTO `用户` VALUES ('4', '测试二号', '123', '100', '100', '100', '100');
 
 -- ----------------------------
 -- Table structure for 记录
@@ -203,7 +208,7 @@ CREATE TABLE `记录` (
   `单词序号` int(8) unsigned NOT NULL,
   `次数` int(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`记录序号`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Records of 记录
