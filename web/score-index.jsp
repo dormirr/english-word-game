@@ -32,10 +32,8 @@
             <p>欢迎您 &nbsp;&bull;&nbsp; ${user.name }&nbsp;本次难度为${Difficulty }</p>
             <p>
                 <a href="playServlet?type=oneMoreGame&&id=${user.id }">再来一局</a>&emsp;
-                <a href="wordServlet?type=selectAll&&id=${user.id }">查看单词库</a>&emsp;
                 <a href="userServlet?type=my&&id=${user.id }">查看个人游戏记录</a>
             </p>
-            <p><a href=" userServlet?type=selectById&&id=${user.id }"><span class="label">修改密码</span></a></p>
             <table width="100%">
                 <thead>
                 <tr align="center">

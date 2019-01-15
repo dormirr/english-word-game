@@ -24,8 +24,9 @@
     <h1>欢迎${user.name }登录</h1>
     <nav>
         <ul>
+            <li><a href=" userServlet?type=selectById&&id=${user.id }">修改密码</a></li>
             <li><a href="userServlet?type=my&&id=${user.id }">游戏记录</a></li>
-            <li><a href="wordServlet?type=selectAll&&id=${user.id }">单词库</a></li>
+            <li><a href="login.jsp">退出登录</a></li>
         </ul>
     </nav>
 </header>

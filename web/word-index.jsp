@@ -29,8 +29,7 @@
         <!-- Header -->
         <header id="header">
             <h1>单词库</h1>
-            <p>欢迎您&bull;${user.name }</p>
-            <p><a href="userServlet?type=my&&id=${user.id }">查看个人游戏记录</a></p>
+            <p>欢迎您&bull;${user.name } <a href="login.jsp">退出登录</a></p>
             <p><a href="wordServlet?type=add&&id=${user.id }">增加单词</a></p>
             <form action="wordServlet?type=like&&id=${user.id }" method="post">
                 <button type="submit"
@@ -58,7 +57,7 @@
                         <td>${item.chinese }</td>
                         <td>${item.difficulty }</td>
                         <td>
-                            <a href="wordServlet?type=selectById&&id=${item.id }">修改
+                            <a href="wordServlet?type=selectById&&wid=${item.id }&&id=${user.id }">修改
                             </a>
                         </td>
                         <td>

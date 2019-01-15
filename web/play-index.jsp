@@ -26,7 +26,6 @@
         <ul>
             <li><a href="userServlet?type=my&&id=${user.id }">游戏记录</a></li>
             <li><a href="userServlet?type=rank&&id=${user.id }&&Difficulty=${Difficulty }">积分排名</a></li>
-            <li><a href="wordServlet?type=selectAll&&id=${user.id }">单词库</a></li>
         </ul>
     </nav>
 </header>
@@ -41,6 +40,7 @@
         <input type="hidden" id="id" value="${user.id }">
         <input type="hidden" id="sum" value="${sum }">
         <input type="hidden" id="Difficulty" value="${Difficulty }">
+        <input type="hidden" id="tid" value="${listtrue.get(0).getId() }">
         <footer>
             <a href="#work" class="button style2 down" onclick="CountDown();cancelDisMouseWheel()"></a>
         </footer>

@@ -31,8 +31,7 @@
             <h1>个人游戏记录</h1>
             <p>欢迎您&bull;${user.name }</p>
             <p>
-                <a href="playServlet?type=oneMoreGame&&id=${user.id }">再来一局</a>&emsp;
-                <a href="wordServlet?type=selectAll&&id=${user.id }">查看单词库</a>
+                <a href="playServlet?type=oneMoreGame&&id=${user.id }">游戏主界面</a>
             </p>
             <table width="100%">
                 <thead>

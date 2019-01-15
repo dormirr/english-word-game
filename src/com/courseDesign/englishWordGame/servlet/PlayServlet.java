@@ -59,13 +59,13 @@ public class PlayServlet extends HttpServlet {
             NotesDao nd = new NotesDao();
             Notes n = new Notes();
 
-            //生成一条初始记录
+            /*//生成一条初始记录
             n.setUid(u.getId());
             n.setWid(listtrue.get(0).getId());
             n.setFrequency(0);
 
             //添加记录
-            nd.insertOne(n);
+            nd.insertOne(n);*/
 
             //初始化积分
             ud.updateDifficulty(u, 0, Difficulty);
@@ -134,7 +134,7 @@ public class PlayServlet extends HttpServlet {
                         p.pagination(request);
 
                         //获取总页数
-                        int countPage = wd.selectNum() / 15 + 1;
+                        int countPage = nd.selectNum(u.getId()) / 15 + 1;
 
                         //传值
                         ScorePassingValues S = new ScorePassingValues();
