@@ -1,12 +1,16 @@
 package com.courseDesign.englishWordGame.servlet;
 
 import com.courseDesign.englishWordGame.dao.UserDao;
+import com.courseDesign.englishWordGame.dao.WordDao;
 import com.courseDesign.englishWordGame.pojo.User;
+import com.courseDesign.englishWordGame.pojo.Word;
+import com.courseDesign.englishWordGame.util.Pagination;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/loginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -71,14 +75,36 @@ public class LoginServlet extends HttpServlet {
                     }
                 }
 
-                //拦截器 存储在Session中
+                //过滤器 存储在Session中
                 HttpSession session = request.getSession();
-                session.setAttribute("users", name);
-                request.setAttribute("user", user);
-                request.getRequestDispatcher("play-welcome.jsp").forward(request, response);
-            }
-            //密码错误
-            else {
+                session.setAttribute("users", user.getId());
+
+
+                //管理员
+                if (user.getId() == 1) {
+                    WordDao wd = new WordDao();
+
+                    List<Word> list = wd.selectAll();
+
+                    //数据库有东西
+                    if (list != null) {
+                        //分页
+                        Pagination p = new Pagination();
+                        p.pagination(request);
+
+                        int countPage = wd.selectNum() / 15 + 1;
+
+                        request.setAttribute("countPage", countPage);
+                        request.setAttribute("list", list);
+                        request.setAttribute("user", user);
+                        request.getRequestDispatcher("word-index.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("user", user);
+                    request.getRequestDispatcher("play-welcome.jsp").forward(request, response);
+                }
+                //密码错误
+            } else {
                 //密码不对
                 request.setAttribute("error", "密码不正确");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
