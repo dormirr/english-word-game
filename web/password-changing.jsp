@@ -34,7 +34,7 @@
             <div class="inner">
                 <form action="userServlet?type=update" method="post">
                     <input type="hidden" name="id" value="${user.id }">
-                    <input name="pwd" type="password" placeholder="请输入一个新的密码">
+                    <input name="pwd" type="password" required="required" placeholder="请输入一个新的密码">
                     <br/>
                     <ul class="actions stacked">
                         <li>

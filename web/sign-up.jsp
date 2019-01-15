@@ -29,13 +29,13 @@
         <div class="inner">
             <header class="major">
                 <h2>注册</h2>
-                <p>注册账号即可开始享受以下服务</p>
+                <p>注册账号即可开始享受以下服务&emsp;<a href="#" onclick="history.go(-1)">后退</a></p>
             </header>
             <div class="inner">
                 <form action="userServlet?type=insert" method="post">
-                    <input name="name" type="text" placeholder="请输入账号">
+                    <input name="name" type="text" required="required" placeholder="请输入账号">
                     <br/>
-                    <input name="pwd" type="password" placeholder="请输入密码">
+                    <input name="pwd" type="password" required="required" placeholder="请输入密码">
                     <br/>
 
                     <ul class="actions stacked">
@@ -44,6 +44,9 @@
                         </li>
                         <li>
                             <p style="color:red">${error }</p>
+                        </li>
+                        <li>
+                            <div id="msg"></div>
                         </li>
                     </ul>
                 </form>
@@ -86,6 +89,7 @@
 <script src="loginassets/js/breakpoints.min.js"></script>
 <script src="loginassets/js/util.js"></script>
 <script src="loginassets/js/main.js"></script>
+<script src="loginassets/js/sign-up.js"></script>
 
 </body>
 
