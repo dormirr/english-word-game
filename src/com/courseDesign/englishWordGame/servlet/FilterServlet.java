@@ -11,6 +11,7 @@ public class FilterServlet implements Filter {
     private String sessionKey;
     private String redirectUrl;
     private String uncheckedUrls;
+    private String uncheckedUrlss;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,6 +22,8 @@ public class FilterServlet implements Filter {
         redirectUrl = servletContext.getInitParameter("redirectPage");
         //System.out.println("redirectPage======" + redirectUrl);
         uncheckedUrls = servletContext.getInitParameter("uncheckedUrls");
+        //System.out.println("uncheckedUrls=====" + uncheckedUrls);
+        uncheckedUrlss = servletContext.getInitParameter("uncheckedUrlss");
         //System.out.println("uncheckedUrls=====" + uncheckedUrls);
     }
 
@@ -34,7 +37,20 @@ public class FilterServlet implements Filter {
         String servletPath = httpRequest.getServletPath();
         System.out.println(servletPath);
 
-        //2.检测1中获取的servletPath是否为不需要检测的URl中的一个.若是,放行
+        //2.1 检测1中获取的servletPath是需要检测的URl中的一个.若不是,放行
+        List<String> urlss = Arrays.asList(uncheckedUrlss.split(","));
+        Object users = httpRequest.getSession().getAttribute("users");
+        if (urlss.contains(servletPath)) {
+            if ((users.toString().equals("1"))) {
+                filterChain.doFilter(httpRequest, httpResponse);
+                return;
+            } else {
+                httpResponse.sendRedirect(httpRequest.getContextPath() + redirectUrl);
+                return;
+            }
+        }
+
+        //2.2 检测1中获取的servletPath是否为不需要检测的URl中的一个.若是,放行
         List<String> urls = Arrays.asList(uncheckedUrls.split(","));
         if (urls.contains(servletPath)) {
             filterChain.doFilter(httpRequest, httpResponse);

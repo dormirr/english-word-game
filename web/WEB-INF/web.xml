@@ -16,6 +16,13 @@
         <param-value>/login.jsp</param-value>
     </context-param>
 
+    <!--管理员需要放行的URL列表;注意配置时不要拦截后台对用户和密码判断的页面,否则可能登录登录不进主界面-->
+    <context-param>
+        <param-name>uncheckedUrlss</param-name>
+        <param-value>/word-index.jsp</param-value>
+    </context-param>
+
+
     <!--不需要拦截的URL列表;注意配置时不要拦截后台对用户和密码判断的页面,否则可能登录登录不进主界面-->
     <context-param>
         <param-name>uncheckedUrls</param-name>
