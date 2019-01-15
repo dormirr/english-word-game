@@ -37,7 +37,7 @@
                        style="background:transparent;border:1px solid #ffffff"><br/><br/>
                 <input name="difficulty" type="text" placeholder="请输入难度"
                        style="background:transparent;border:1px solid #ffffff"><br/>
-                <button type="submit" style="background:transparent;border:0px solid #ffffff;color:#ffffff"><p>提交</p>
+                <button type="submit" style="background:transparent;border:0px solid #ffffff;color:#ffffff;font-size: 1em"><p>提交</p>
                 </button>
             </form>
         </header>
