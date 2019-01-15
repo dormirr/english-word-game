@@ -31,6 +31,8 @@ public class UserDao {
                 user.setName(rs.getString("账号"));
                 user.setPwd(rs.getString("密码"));
             }
+            rs.close();
+            stmt.close();
             conn.close();
             return user;
         } catch (Exception e) {
@@ -61,6 +63,8 @@ public class UserDao {
                 user.setRanking(rs.getInt("累计积分排名"));
                 list.add(user);
             }
+            rs.close();
+            stmt.close();
             conn.close();
             return list;
         } catch (Exception e) {
@@ -89,6 +93,8 @@ public class UserDao {
                 user.setRandom(rs.getInt("随机"));
                 list.add(user);
             }
+            rs.close();
+            stmt.close();
             conn.close();
             return list;
         } catch (Exception e) {
@@ -106,6 +112,7 @@ public class UserDao {
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getPwd());
             int result = stmt.executeUpdate();
+            stmt.close();
             conn.close();
             if (result != -1) {
                 return true;
@@ -127,6 +134,7 @@ public class UserDao {
             stmt.setString(1, user.getPwd());
             stmt.setInt(2, user.getId());
             int result = stmt.executeUpdate();
+            stmt.close();
             conn.close();
             if (result > 0) {
                 return true;
@@ -149,6 +157,7 @@ public class UserDao {
             stmt.setInt(1, difficulty);
             stmt.setInt(2, user.getId());
             int result = stmt.executeUpdate();
+            stmt.close();
             conn.close();
             if (result > 0) {
                 return true;
@@ -181,6 +190,8 @@ public class UserDao {
                 user.setHardScore(rs.getInt("困难"));
                 user.setRandom(rs.getInt("随机"));
             }
+            rs.close();
+            stmt.close();
             conn.close();
             return user;
         } catch (Exception e) {
@@ -200,6 +211,8 @@ public class UserDao {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             int count = rs.getInt(1);
+            rs.close();
+            stmt.close();
             conn.close();
             return count;
         } catch (Exception e) {
@@ -219,6 +232,8 @@ public class UserDao {
             //bean对象封装
             rs.next();
             count = rs.getInt(1);
+            rs.close();
+            stmt.close();
             conn.close();
             return count;
         } catch (Exception e) {

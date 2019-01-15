@@ -20,6 +20,7 @@ public class NotesDao {
             stmt.setInt(2, user.getWid());
             stmt.setInt(3, user.getFrequency());
             int result = stmt.executeUpdate();
+            stmt.close();
             conn.close();
             if (result != -1) {
                 return true;
@@ -42,6 +43,7 @@ public class NotesDao {
             stmt.setInt(2, user.getUid());
             stmt.setInt(3, user.getWid());
             int result = stmt.executeUpdate();
+            stmt.close();
             conn.close();
             if (result > 0) {
                 return true;
@@ -70,6 +72,8 @@ public class NotesDao {
                 user.setFrequency(rs.getInt("次数"));
                 list.add(user);
             }
+            rs.close();
+            stmt.close();
             conn.close();
             return list;
         } catch (Exception e) {
@@ -94,6 +98,8 @@ public class NotesDao {
                 user.setWid(rs.getInt("单词序号"));
                 user.setFrequency(rs.getInt("次数"));
             }
+            rs.close();
+            stmt.close();
             conn.close();
             return user;
         } catch (Exception e) {
@@ -114,6 +120,8 @@ public class NotesDao {
                 rs.next();
                 list.get(i).setWord(rs.getString("英文"));
                 list.get(i).setChinese(rs.getString("中文"));
+                rs.close();
+                stmt.close();
             }
             conn.close();
             return list;
@@ -134,6 +142,8 @@ public class NotesDao {
             rs.next();
             int count;
             count = rs.getInt(1);
+            rs.close();
+            stmt.close();
             conn.close();
             return count;
         } catch (Exception e) {
