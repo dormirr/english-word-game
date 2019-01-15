@@ -128,9 +128,9 @@
             </ul>
             <div class="inner">
                 <form action="loginServlet" method="post">
-                    <input name="name" type="text" placeholder="请输入账号" value="<%=name %>">
+                    <input name="name" type="text" required="required" placeholder="请输入账号" value="<%=name %>">
                     <br/>
-                    <input name="pwd" type="password" placeholder="请输入密码" value="<%=pwd %>">
+                    <input name="pwd" type="password" required="required" placeholder="请输入密码" value="<%=pwd %>">
                     <br/>
                     <input id="remember-me" type="checkbox" name="rememberUser" checked="checked">
                     <label for="remember-me">
