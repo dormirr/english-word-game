@@ -37,7 +37,7 @@ public class WordServlet extends HttpServlet {
             String chinese = request.getParameter("chinese");
             String difficulty = request.getParameter("difficulty");
 
-            //添加到数据库
+            //生成Word
             Word word = new Word();
             word.setWord(word1);
             word.setChinese(chinese);
@@ -69,6 +69,7 @@ public class WordServlet extends HttpServlet {
         } else if ("add".equals(type)) {
             request.setAttribute("user", u);
             request.getRequestDispatcher("add-words.jsp").forward(request, response);
+            //删除单词
         } else if ("delete".equals(type)) {
             //获取单词id
             String wid = request.getParameter("id");
@@ -129,7 +130,7 @@ public class WordServlet extends HttpServlet {
             //根据单词id查询单词
         } else if ("selectById".equals(type)) {
             //获取单词id
-            String wid = request.getParameter("id");
+            String wid = request.getParameter("wid");
 
             WordDao wd = new WordDao();
 
