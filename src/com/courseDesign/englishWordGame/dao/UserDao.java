@@ -46,7 +46,7 @@ public class UserDao {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            String sql = "SELECT CASE WHEN @prevRank = " + difficulty + " THEN @rank WHEN @prevRank := " + difficulty + " THEN @rank := @rank+1 END AS 累计积分排名,a.* FROM(SELECT * FROM 用户)a,(SELECT @rank :=0,@prevRank :=NULL)b ORDER BY a." + difficulty + " DESC";
+            String sql = "SELECT *,(SELECT count(DISTINCT "+difficulty+") FROM 用户 AS b WHERE a."+difficulty+"<b."+difficulty+")+1 AS 累计积分排名 FROM 用户 AS a ORDER BY 累计积分排名 ;";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();//执行
             List<User> list = new ArrayList<User>();
