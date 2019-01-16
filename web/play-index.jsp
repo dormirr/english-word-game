@@ -62,14 +62,14 @@
                 <article class="from-left">
                     <button type="submit"
                             style="font-size: 1em"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(0).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(0).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }&&dif=${listtrue.get(0).getDifficulty() }"
                             formmethod="post">
                         <p>${listall.get(0).getChinese() }<p/></button>
                 </article>
                 <article class="from-right">
                     <button type="submit"
                             style="font-size: 1em"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(1).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(1).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }&&dif=${listtrue.get(0).getDifficulty() }"
                             formmethod="post">
                         <p>${listall.get(1).getChinese() }<p/></button>
                 </article>
@@ -79,14 +79,14 @@
                 <article class="from-left">
                     <button type="submit"
                             style="font-size: 1em"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(2).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(2).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }&&dif=${listtrue.get(0).getDifficulty() }"
                             formmethod="post">
                         <p>${listall.get(2).getChinese() }<p/></button>
                 </article>
                 <article class="from-right">
                     <button type="submit"
                             style="font-size: 1em"
-                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(3).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }"
+                            formaction="playServlet?type=judge&&id=${user.id }&&fid=${listall.get(3).getId() }&&tid=${listtrue.get(0).getId() }&&sum=${sum }&&Difficulty=${Difficulty }&&dif=${listtrue.get(0).getDifficulty() }"
                             formmethod="post">
                         <p>${listall.get(3).getChinese() }<p/></button>
                 </article>

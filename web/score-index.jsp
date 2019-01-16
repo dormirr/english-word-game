@@ -43,7 +43,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${list }" var="item">
+                <c:forEach items="${list }" var="item" begin="${(pageNos-1)*15 }" end="${pageNos*15-1}">
                     <tr align="center">
                         <td>${item.name }</td>
                         <c:if test="${Difficulty == '简单'}">
@@ -68,12 +68,12 @@
         <!-- Footer -->
         <footer id="footer">
             <c:if test="${pageNos > 1 }">
-                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=1">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=${pageNos-1 }">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="userServlet?type=rank&&id=${user.id }&&pageNos=1&&Difficulty=${Difficulty }">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="userServlet?type=rank&&id=${user.id }&&pageNos=${pageNos-1 }&&Difficulty=${Difficulty }">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </c:if>
             <c:if test="${pageNos < countPage }">
-                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=${pageNos+1 }">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="wordServlet?type=selectAll&&id=${user.id }&&pageNos=${countPage }">末页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="userServlet?type=rank&&id=${user.id }&&pageNos=${pageNos+1 }&&Difficulty=${Difficulty }">下一页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="userServlet?type=rank&&id=${user.id }&&pageNos=${countPage }&&Difficulty=${Difficulty }">末页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </c:if>
             共${countPage }页
         </footer>
