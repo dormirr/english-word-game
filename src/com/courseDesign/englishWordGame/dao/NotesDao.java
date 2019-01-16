@@ -15,10 +15,11 @@ public class NotesDao {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("insert into 记录(用户序号,单词序号,次数) values(?,?,?)");
+            PreparedStatement stmt = conn.prepareStatement("insert into 记录(用户序号,单词序号,错误次数,正确次数) values(?,?,?,?)");
             stmt.setInt(1, user.getUid());
             stmt.setInt(2, user.getWid());
             stmt.setInt(3, user.getFrequency());
+            stmt.setInt(4, user.getTrequency());
             int result = stmt.executeUpdate();
             stmt.close();
             conn.close();
@@ -38,8 +39,31 @@ public class NotesDao {
             //1.得到一个连接
             Connection conn = DBUtil.getConn();
             //2.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("UPDATE 记录 SET 次数=? where 用户序号=? and 单词序号=?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE 记录 SET 错误次数=? where 用户序号=? and 单词序号=?");
             stmt.setInt(1, frequency);
+            stmt.setInt(2, user.getUid());
+            stmt.setInt(3, user.getWid());
+            int result = stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateOnee(Notes user, int trequency) {
+        try {
+            //1.得到一个连接
+            Connection conn = DBUtil.getConn();
+            //2.得到操作数据库对象
+            PreparedStatement stmt = conn.prepareStatement("UPDATE 记录 SET 正确次数=? where 用户序号=? and 单词序号=?");
+            stmt.setInt(1, trequency);
             stmt.setInt(2, user.getUid());
             stmt.setInt(3, user.getWid());
             int result = stmt.executeUpdate();
@@ -69,7 +93,8 @@ public class NotesDao {
                 Notes user = new Notes();
                 user.setUid(rs.getInt("用户序号"));
                 user.setWid(rs.getInt("单词序号"));
-                user.setFrequency(rs.getInt("次数"));
+                user.setFrequency(rs.getInt("错误次数"));
+                user.setTrequency(rs.getInt("正确次数"));
                 list.add(user);
             }
             rs.close();
@@ -96,7 +121,8 @@ public class NotesDao {
                 user = new Notes();
                 user.setUid(rs.getInt("用户序号"));
                 user.setWid(rs.getInt("单词序号"));
-                user.setFrequency(rs.getInt("次数"));
+                user.setFrequency(rs.getInt("错误次数"));
+                user.setTrequency(rs.getInt("正确次数"));
             }
             rs.close();
             stmt.close();
@@ -136,7 +162,7 @@ public class NotesDao {
             //2.得到一个连接
             Connection conn = DBUtil.getConn();
             //3.得到操作数据库对象
-            PreparedStatement stmt = conn.prepareStatement("select count(用户序号=?) from 记录");
+            PreparedStatement stmt = conn.prepareStatement("select count(*) from 记录 where 用户序号=?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();//执行
             rs.next();

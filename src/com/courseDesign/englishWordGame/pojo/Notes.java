@@ -5,6 +5,7 @@ public class Notes {
     private int uid;
     private int wid;
     private int frequency;
+    private int trequency;
     private String word;
     private String chinese;
 
@@ -40,6 +41,14 @@ public class Notes {
         this.frequency = frequency;
     }
 
+    public int getTrequency() {
+        return trequency;
+    }
+
+    public void setTrequency(int trequency) {
+        this.trequency = trequency;
+    }
+
     public String getWord() {
         return word;
     }
@@ -63,6 +72,7 @@ public class Notes {
                 ", uid=" + uid +
                 ", wid=" + wid +
                 ", frequency=" + frequency +
+                ", trequency=" + trequency +
                 ", word='" + word + '\'' +
                 ", chinese='" + chinese + '\'' +
                 '}';

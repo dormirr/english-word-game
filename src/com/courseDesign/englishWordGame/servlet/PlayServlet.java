@@ -84,15 +84,47 @@ public class PlayServlet extends HttpServlet {
             }
             //判断对错
         } else if ("judge".equals(type)) {
-            //获取用户选择的汉语id，正确答案的id，剩余次数
+            //获取用户选择的汉语id，正确答案的id，剩余次数，单词难度（随机难度需要用）
             int fid = Integer.parseInt(request.getParameter("fid"));
             int tid = Integer.parseInt(request.getParameter("tid"));
             int sum = Integer.parseInt(request.getParameter("sum"));
+            String dif = request.getParameter("dif");
 
             //选对
             if (fid == tid) {
-                //积分加一，更新数据库
-                ud.updateDifficulty(u, ud.selectDifficulty(uid, Difficulty) + 1, Difficulty);
+                if (Difficulty.equals("随机")) {
+                    if (dif.equals("简单")) {
+                        //积分加一，更新数据库
+                        ud.updateDifficulty(u, ud.selectDifficulty(uid, Difficulty) + 1, Difficulty);
+                    } else if (dif.equals("中等")) {
+                        //积分加二，更新数据库
+                        ud.updateDifficulty(u, ud.selectDifficulty(uid, Difficulty) + 2, Difficulty);
+                    } else if (dif.equals("困难")) {
+                        //积分加三，更新数据库
+                        ud.updateDifficulty(u, ud.selectDifficulty(uid, Difficulty) + 3, Difficulty);
+                    }
+                } else {
+                    //积分加一，更新数据库
+                    ud.updateDifficulty(u, ud.selectDifficulty(uid, Difficulty) + 1, Difficulty);
+                }
+                NotesDao nd = new NotesDao();
+
+                //查询该用户是否有这个单词的游戏记录
+                Notes n = nd.selectNotes(uid, request.getParameter("tid"));
+
+                //如果有 正确次数加1
+                if (n != null) {
+                    nd.updateOnee(n, (n.getTrequency() + 1));
+                    //如果没有 生成一条记录
+                } else {
+                    //添加记录
+                    Notes nn = new Notes();
+                    nn.setUid(u.getId());
+                    nn.setWid(tid);
+                    nn.setFrequency(0);
+                    nn.setTrequency(1);
+                    nd.insertOne(nn);
+                }
 
                 //题目生成成功
                 if (listtrue != null && listflase != null) {
@@ -119,6 +151,7 @@ public class PlayServlet extends HttpServlet {
                     nn.setUid(u.getId());
                     nn.setWid(tid);
                     nn.setFrequency(1);
+                    nn.setTrequency(0);
                     nd.insertOne(nn);
                 }
 
@@ -134,7 +167,7 @@ public class PlayServlet extends HttpServlet {
                         p.pagination(request);
 
                         //获取总页数
-                        int countPage = nd.selectNum(u.getId()) / 15 + 1;
+                        int countPage = ud.selectNum() / 15 + 1;
 
                         //传值
                         ScorePassingValues S = new ScorePassingValues();
