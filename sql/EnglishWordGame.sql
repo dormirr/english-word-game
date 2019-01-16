@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-01-14 09:22:33
+Date: 2019-01-16 11:15:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -230,7 +230,7 @@ INSERT INTO `单词` VALUES ('197', 'navigator', '航海家', '困难');
 INSERT INTO `单词` VALUES ('198', 'bitch', '彪子', '困难');
 INSERT INTO `单词` VALUES ('199', 'seethe', '沸腾；汹涌', '困难');
 INSERT INTO `单词` VALUES ('200', 'abortion', '人工流产；堕胎', '中等');
-INSERT INTO `单词` VALUES ('201', 'academic', '学术的', '中等');
+INSERT INTO `单词` VALUES ('201', 'no', '不', '简单');
 INSERT INTO `单词` VALUES ('202', 'absurd', '怪诞不经的', '中等');
 INSERT INTO `单词` VALUES ('203', 'accommodation', '住宿', '中等');
 INSERT INTO `单词` VALUES ('204', 'bandage', '绷带', '中等');
@@ -350,8 +350,8 @@ CREATE TABLE `用户` (
 -- ----------------------------
 -- Records of 用户
 -- ----------------------------
-INSERT INTO `用户` VALUES ('1', '管理员', '123', '99999999', '99999999', '99999999', '99999999');
-INSERT INTO `用户` VALUES ('2', '张天赐', '123', '1', '2', '3', '4');
+INSERT INTO `用户` VALUES ('1', '张天赐', '123', '99999999', '99999999', '99999999', '99999999');
+INSERT INTO `用户` VALUES ('2', '测试', '123', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for 记录
@@ -360,8 +360,12 @@ DROP TABLE IF EXISTS `记录`;
 CREATE TABLE `记录` (
   `用户序号` int(8) unsigned NOT NULL,
   `单词序号` int(8) unsigned NOT NULL,
-  `次数` int(8) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`用户序号`,`单词序号`)
+  `错误次数` int(8) unsigned NOT NULL DEFAULT '0',
+  `正确次数` int(8) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`用户序号`,`单词序号`),
+  KEY `单词_单词序号` (`单词序号`),
+  CONSTRAINT `单词_单词序号` FOREIGN KEY (`单词序号`) REFERENCES `单词` (`单词序号`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `用户_用户序号` FOREIGN KEY (`用户序号`) REFERENCES `用户` (`用户序号`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
