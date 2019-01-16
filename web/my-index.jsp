@@ -39,6 +39,7 @@
                     <th>单词英文</th>
                     <th>单词中文</th>
                     <th>错误次数</th>
+                    <th>正确次数</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,7 @@
                         <td>${item.word }</td>
                         <td>${item.chinese }</td>
                         <td>${item.frequency }</td>
+                        <td>${item.trequency }</td>
                     </tr>
                 </c:forEach>
                 </tbody>
