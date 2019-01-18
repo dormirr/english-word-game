@@ -79,7 +79,7 @@ public class UserServlet extends HttpServlet {
                 //更新失败
             } else {
                 request.setAttribute("error", "修改失败");
-                request.getRequestDispatcher("user-update.jsp").forward(request, response);
+                request.getRequestDispatcher("password-changing.jsp").forward(request, response);
             }
             //修改密码
         } else if ("selectById".equals(type)) {
