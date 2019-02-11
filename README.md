@@ -56,3 +56,15 @@ Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Engli
 
 - \sql目录下的EnglishWordGame.sql为相应的数据库文件，将它导入；
 - 相应的账号查看数据库文件即可。
+
+### 关于管理员的问题
+
+目前只有账号id为1的帐号才拥有管理员权限，若想增加，需要修改代码。
+
+/src/com/courseDesign/englishWordGame/servlet目录下的LoginServlet.java文件中，将以下代码进行修改：
+
+```java
+if (user.getId() == 1)
+```
+
+- 将`==`修改为小于`<=`某个数字即可。这样数据库用户表中，id小于等于你修改的数字的账号，都会拥有管理员权限。
