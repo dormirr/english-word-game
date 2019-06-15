@@ -29,7 +29,8 @@
         <!-- Header -->
         <header id="header">
             <h1>单词库</h1>
-            <p>欢迎您&bull;${user.name }&emsp;<a href="login.jsp">退出登录</a>&emsp;<a href="userServlet?type=selectById&&id=${user.id }">修改密码</a></p>
+            <p>欢迎您&bull;${user.name }&emsp;<a href="login.jsp">退出登录</a>&emsp;<a
+                    href="userServlet?type=selectById&&id=${user.id }">修改密码</a></p>
             <p><a href="wordServlet?type=add&&id=${user.id }">增加单词</a></p>
             <form action="wordServlet?type=like&&id=${user.id }" method="post">
                 <button type="submit"

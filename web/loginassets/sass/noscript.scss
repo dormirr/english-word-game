@@ -13,24 +13,24 @@
 
 /* Banner */
 
-	body.is-preload {
-		#banner {
-			h2 {
-				@include vendor('transform', 'none');
-				opacity: 1;
+body.is-preload {
+  #banner {
+    h2 {
+      @include vendor('transform', 'none');
+      opacity: 1;
 
-				&:before, &:after {
-					width: 100%;
-				}
-			}
+      &:before, &:after {
+        width: 100%;
+      }
+    }
 
-			.more {
-				@include vendor('transform', 'none');
-				opacity: 1;
-			}
+    .more {
+      @include vendor('transform', 'none');
+      opacity: 1;
+    }
 
-			&:after {
-				opacity: 0;
-			}
-		}
-	}
+    &:after {
+      opacity: 0;
+    }
+  }
+}

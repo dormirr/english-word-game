@@ -6,33 +6,33 @@
 
 /* Table */
 
-	table {
-		width: 100%;
+table {
+  width: 100%;
 
-		&.default {
-			width: 100%;
+  &.default {
+    width: 100%;
 
-			tbody tr:nth-child(2n+2) {
-				background: transparentize(_palette(border), 0.5);
-			}
+    tbody tr:nth-child(2n+2) {
+      background: transparentize(_palette(border), 0.5);
+    }
 
-			td {
-				padding: 0.5em 1em 0.5em 1em;
-			}
+    td {
+      padding: 0.5em 1em 0.5em 1em;
+    }
 
-			th {
-				text-align: left;
-				font-weight: 900;
-				padding: 0.5em 1em 0.5em 1em;
-			}
+    th {
+      text-align: left;
+      font-weight: 900;
+      padding: 0.5em 1em 0.5em 1em;
+    }
 
-			thead {
-				background: _palette(fg);
-				color: _palette(bg);
-			}
+    thead {
+      background: _palette(fg);
+      color: _palette(bg);
+    }
 
-			tfoot {
-				background: _palette(border);
-			}
-		}
-	}
+    tfoot {
+      background: _palette(border);
+    }
+  }
+}

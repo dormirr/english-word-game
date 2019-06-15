@@ -12,8 +12,8 @@
 
 /* Loader */
 
-	body {
-		&:before, &:after {
-			display: none;
-		}
-	}
+body {
+  &:before, &:after {
+    display: none;
+  }
+}

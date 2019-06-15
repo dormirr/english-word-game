@@ -6,48 +6,48 @@
 
 /* Image */
 
-	.image {
-		position: relative;
-		display: inline-block;
+.image {
+  position: relative;
+  display: inline-block;
 
-		&:before {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			background: url('images/overlay.png');
-		}
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/overlay.png');
+  }
 
-		img {
-			display: block;
-			width: 100%;
-		}
+  img {
+    display: block;
+    width: 100%;
+  }
 
-		&.featured {
-			display: block;
-			width: 100%;
-			margin: 0 0 2em 0;
-		}
+  &.featured {
+    display: block;
+    width: 100%;
+    margin: 0 0 2em 0;
+  }
 
-		&.fit {
-			display: block;
-			width: 100%;
-		}
+  &.fit {
+    display: block;
+    width: 100%;
+  }
 
-		&.left {
-			float: left;
-			margin: 0 2em 2em 0;
-		}
+  &.left {
+    float: left;
+    margin: 0 2em 2em 0;
+  }
 
-		&.centered {
-			display: block;
-			margin: 0 0 2em 0;
+  &.centered {
+    display: block;
+    margin: 0 0 2em 0;
 
-			img {
-				margin: 0 auto;
-				width: auto;
-			}
-		}
-	}
+    img {
+      margin: 0 auto;
+      width: auto;
+    }
+  }
+}

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class PlayPassingValues {
-    public void playPassingValues(HttpServletRequest request, HttpServletResponse response, int difficulty, List<Word> listtrue, List<Word> listall, User u, int sum,String Difficulty) throws ServletException, IOException {
+    public void playPassingValues(HttpServletRequest request, HttpServletResponse response, int difficulty, List<Word> listtrue, List<Word> listall, User u, int sum, String Difficulty) throws ServletException, IOException {
         request.setAttribute("difficulty", difficulty);
         request.setAttribute("Difficulty", Difficulty);
         request.setAttribute("listtrue", listtrue);
